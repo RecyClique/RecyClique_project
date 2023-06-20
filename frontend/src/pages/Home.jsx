@@ -11,5 +11,23 @@ export default function HomePage() {
         <button id='landingCreateButton' className='button is-rounded'>Create an event!</button>
       </Link>
     </section>
+    <section className='section is-medium' id='landingSection3'>
+      <div className='text-3'>
+      <p className='is-size-4 py-5 pb-5 has-text-weight-semibold'>Every year, millions of tons of recyclable materials end up in landfills, causing environmental harm and contributing to pollution. By increasing recycling efforts, we can help reduce this waste and prevent the loss of valuable resources, making a difference in the health of our planet.</p>
+      <br/> 
+      <p>Our mission is to create an online platform that empowers individuals and communities to actively participate in sustainable recycling practices. Through our recycling event webpage, we aim to inspire action, raise awareness, and foster a sense of responsibility towards the environment.</p>
+      <br/>
+      <Link to='/about'>
+      <p className='is-size-5 py-4 pb-4 is-underlined'>Learn more about us</p>
+      </Link>
+      </div>
+      <figure className="image">
+        <img src='https://images.pexels.com/photos/7772006/pexels-photo-7772006.jpeg'/>
+      </figure>
+    </section>
+    <section className='section is-medium' id='landingSection4'>
+      <h1>Subscribe to our Newsletter</h1>
+      <h1>Sign up to stay informed with the latest news and updates.</h1>
+    </section>
   </>
 }
