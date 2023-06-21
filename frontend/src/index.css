@@ -273,9 +273,9 @@ form {
 }
 
 .is-custom {
-  background: linear-gradient(to right, white 50%,  #253551 50%);
+  background: linear-gradient(to right, white 50%,  #344d41 50%);
   background-size: 200% 100%;
-  transition: background-position 0.5s, color 0.5s;
+  transition: background-position 0.3s, color 0.3s;
   transition-timing-function: ease-in;
   color: black; 
 }
