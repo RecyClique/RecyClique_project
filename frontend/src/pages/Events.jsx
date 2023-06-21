@@ -77,7 +77,7 @@ const Events = () => {
                 return (
                   joined.has(event.id) === false && Number(event.organizer_id) !== Number(currentUser.id) ? <>
                     <div className='box eventBox' id={'eventId: ' + event.id}>
-                      <div>
+                      <div> 
                         <h1 className='title'>{event.title}</h1>
                         <p>{event.borough}</p>
                         <p>{event.location}</p>
