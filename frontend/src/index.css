@@ -1,5 +1,10 @@
 *{
-  font-family: "Lucida Console", "Courier New", monospace;
+  font-family: Source Code Pro;
+  font-weight: 300;
+  font-style: normal;
+  letter-spacing: 0em;
+  text-transform: none;
+  line-height: 1.7;
 }
 
 body {
@@ -114,7 +119,11 @@ form {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  background-image: url('https://cdn.pixabay.com/photo/2022/11/26/08/27/plastic-waste-7617451_1280.jpg');
+  background-image: url('https://images.pexels.com/photos/4498090/pexels-photo-4498090.jpeg');
+}
+
+#landingSection1 h1 {
+  text-shadow: #000 0px 0px 10px;
 }
 
 #landingSection1 h1,
@@ -154,6 +163,12 @@ form {
   align-items: center;
   text-align: center;
 }
+@media (max-width: 768px){
+  #landingSection3 {
+    flex-direction: column-reverse;
+  }
+}
+
 .text-3 {
   padding-right: 5%;
 }

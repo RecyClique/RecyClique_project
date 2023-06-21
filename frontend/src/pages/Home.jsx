@@ -28,7 +28,7 @@ export default function HomePage() {
     <section className='section is-medium has-text-centered' id='landingSection4'>
       <h1 className='is-size-3 has-text-weight-bold'>Read The Latest News on Enironmentalism</h1>
       <p className='is-size-4 py-5 pb-5'>Our NewsFeed brings you the latest updates, informative articles, and statistics on environmental issues. Discover practical tips for sustainable living and join a community of like-minded individuals. Dive into comprehensive statistics highlighting the current state of our environment. Become part of our global movement for a greener, cleaner future!</p>
-      <Link to='/news'>
+      <Link to='/newsFeed'>
         <button id='landingCreateButton' className='button'>Read the News</button>
       </Link>
     </section>
