@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import CurrentUserContext from "../contexts/current-user-context";
 import { joinEvent } from "../adapters/user-adapter";
 import { listAllJoined } from "../adapters/user-adapter";
+
 const Events = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
