@@ -105,8 +105,11 @@ const Events = () => {
                         {/* <h1 className='is-size-5 has-text-weight-bold mt-4'>Description</h1> */}
                         {/* <p>{event.description}</p> */}
                         <div>
-                          <button>onClick={openModal}Description</button>
-
+                          {/* <button>onClick={openModal}Description</button> */}
+                          <details>
+                            <summary>Description</summary>
+                            <p>Epcot is a theme park at Walt Disney World Resort featuring exciting attractions, international pavilions, award-winning fireworks and seasonal special events.</p>
+                          </details>
                         </div>
                       </div>
                     </div>

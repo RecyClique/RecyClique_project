@@ -47,7 +47,7 @@ const Dashboard = () => {
   return (
     <>
       <div>
-        <h1 className="title has-text-centered">Dashboard Page</h1>
+        <h1 className="title has-text-centered">Dashboard</h1>
       </div>
 
 
@@ -56,7 +56,7 @@ const Dashboard = () => {
         <ul>
           <li className={currentTab === 0 ? "is-active" : ""} onClick={() => changeTab(0)}><a>Joined Events</a></li>
           {/* <li className={currentTab === 1 ? "is-active" : ""} onClick={() => changeTab(1)}><a>Past Events</a></li> */}
-          <li className={currentTab === 2 ? "is-active" : ""} onClick={() => changeTab(2)}><a>Events Created</a></li>
+          <li className={currentTab === 2 ? "is-active" : ""} onClick={() => changeTab(2)}><a>Created Events</a></li>
         </ul>
       </div>
       <div className="tab-content">
