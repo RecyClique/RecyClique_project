@@ -136,9 +136,8 @@ const Events = () => {
                       <div>
                         <h1 className='is-size-5 has-text-weight-bold mt-4'>Description</h1>
                         <p>{event.description}</p>
-                        <img>{event.image}</img>
                         <button onClick={openModal}>Description</button>
-                        
+                        <img>{event.image}</img>
                       </div>
                     </div>
                   </>
