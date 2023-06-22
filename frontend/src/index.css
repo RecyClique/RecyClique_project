@@ -54,6 +54,10 @@ nav a {
   color: #FFF;
 }
 
+.navbar-item {
+  font-size: large;
+}
+
 form {
   padding: 1rem;
   border: 1px solid #CCC;
@@ -83,6 +87,7 @@ form {
 #footer {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  font-size: 1.1em;
 }
 
 .footerSec {
@@ -120,6 +125,7 @@ form {
   background-repeat: no-repeat;
   background-position: center;
   background-image: url('https://images.pexels.com/photos/4498090/pexels-photo-4498090.jpeg');
+  text-shadow: #000;
 }
 
 #landingSection1 h1 {
@@ -140,6 +146,10 @@ form {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+#landingSection3 p {
+  font-size: larger;
 }
 
 .aboutLink {

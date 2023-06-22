@@ -15,10 +15,10 @@ export default function HomePage() {
       <div className='text-3'>
       <p className='is-size-4 py-5 pb-5 has-text-weight-semibold'>Every year, millions of tons of recyclable materials end up in landfills, causing environmental harm and contributing to pollution. By increasing recycling efforts, we can help reduce this waste and prevent the loss of valuable resources, making a difference in the health of our planet.</p>
       <br/> 
-      <p>Our mission is to create an online platform that empowers individuals and communities to actively participate in sustainable recycling practices. Through our recycling event webpage, we aim to inspire action, raise awareness, and foster a sense of responsibility towards the environment.</p>
+      <p>Our mission is to create an online platform that empowers individuals and communities to actively participate in sustainable recycling practices. Through our recycling event webpage, we aim to inspire action, raise awareness and foster a sense of responsibility towards the environment.</p>
       <br/>
       <Link to='/about' className='aboutLink'>
-      <p className='is-size-5 py-4 pb-4 is-underlined'>Learn More Abbout Us</p>
+      <p className='is-size-5 py-4 pb-4 is-underlined'>More About Us</p>
       </Link>
       </div>
       <figure className="image">
