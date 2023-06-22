@@ -1,4 +1,4 @@
-import { fetchHandler, getPostOptions, getPatchOptions } from "../utils";
+import { fetchHandler, getPostOptions, getPatchOptions, deleteOptions } from "../utils";
 
 const baseUrl = '/api/users';
 
@@ -15,6 +15,11 @@ export const getAllUsers = async () => {
   const [users] = await fetchHandler(baseUrl);
   return users || [];
 };
+
+export const leavePost = async (userId, eventId) => {
+  const result = await fetchHandler(`${baseUrl}/${userId}/events/${eventId}`, deleteOptions);
+  return result;
+}
 
 export const listAllJoined = async (userId) => {
   const result = await fetchHandler(`${baseUrl}/${userId}/joinedEvents`)

@@ -1,4 +1,4 @@
-import { fetchHandler, getPostOptions, getPatchOptions } from "../utils";
+import { fetchHandler, getPostOptions, getPatchOptions, deleteOptions } from "../utils";
 
 const baseUrl = '/api/events';
 
@@ -11,6 +11,11 @@ export const getAllEvents = async () => {
   const [events] = await fetchHandler(baseUrl);
   return events || [];
 };
+
+export const deleteEvent = async (eventId) => {
+  const result = await fetchHandler(`${baseUrl}/${eventId}`, deleteOptions)
+  return result
+}
 
 // export const getUser = async (id) => fetchHandler(`${baseUrl}/${id}`);
 

@@ -1,4 +1,5 @@
-import { listAllCreated, listAllJoined } from "../adapters/user-adapter"
+import { listAllCreated, listAllJoined, leavePost } from "../adapters/user-adapter"
+import { deleteEvent } from "../adapters/events-adapter";
 import CurrentUserContext from "../contexts/current-user-context";
 import { useContext, useEffect, useState } from "react";
 const Dashboard = () => {
@@ -33,11 +34,20 @@ const Dashboard = () => {
     setCurrentTab(index)
   }
 
+  const leaveEventButton = async (eventId) => {
+    await leavePost(currentUser.id, eventId);
+    window.location.reload()
+  }
+
+  const deleteEventButton = async (eventId) =>{
+    await deleteEvent(eventId);
+    window.location.reload();
+  }
 
   return (
     <>
       <div>
-        <h1>Dashboard Page</h1>
+        <h1 className="title has-text-centered">Dashboard Page</h1>
       </div>
 
 
@@ -66,7 +76,7 @@ const Dashboard = () => {
                         <p>{joinedEvent.start_time + ' - ' + joinedEvent.end_time}</p>
                       </div>
                       <div className='cardSec2'>
-                        <button className='button is-danger'>Leave Event</button>
+                        <button className='button is-danger' onClick={() => leaveEventButton(joinedEvent.id)}>Leave Event</button>
                       </div>
                       <div>
                         <h1 className='is-size-5 has-text-weight-bold mt-4'>Description</h1>
@@ -95,7 +105,7 @@ const Dashboard = () => {
                         <p>{createdEvent.start_time + ' - ' + createdEvent.end_time}</p>
                       </div>
                       <div className='cardSec2'>
-                        <button className='button is-primary'>Delete Event</button>
+                        <button className='button is-primary' onClick={() => deleteEventButton(createdEvent.id)}>Delete Event</button>
                       </div>
                       <div>
                         <h1 className='is-size-5 has-text-weight-bold mt-4'>Description</h1>
