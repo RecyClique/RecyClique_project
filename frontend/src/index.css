@@ -1,5 +1,13 @@
+*{
+  font-family: Source Code Pro;
+  font-weight: 300;
+  font-style: normal;
+  letter-spacing: 0em;
+  text-transform: none;
+  line-height: 1.7;
+}
+
 body {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   margin: 0;
   min-height: 100vh;
 }
@@ -46,6 +54,10 @@ nav a {
   color: #FFF;
 }
 
+.navbar-item {
+  font-size: large;
+}
+
 form {
   padding: 1rem;
   border: 1px solid #CCC;
@@ -75,6 +87,7 @@ form {
 #footer {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  font-size: 1.1em;
 }
 
 .footerSec {
@@ -111,14 +124,20 @@ form {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  background-image: url('https://cdn.pixabay.com/photo/2022/11/26/08/27/plastic-waste-7617451_1280.jpg');
+  background-image: url('https://images.pexels.com/photos/4498090/pexels-photo-4498090.jpeg');
+  text-shadow: #000;
+}
+
+#landingSection1 h1 {
+  text-shadow: #000 0px 0px 10px;
 }
 
 #landingSection1 h1,
 #landingSection2 h1,
-#landingSection2 p {
+#landingSection2 p,
+#landingSection4 h1,
+#landingSection4 p {  
   color: white;
-  text-shadow: 1px 1px 2px black, 0 0 1em black, 0 0 0.2em black;
 }
 
 #landingSection2 {
@@ -129,8 +148,57 @@ form {
   align-items: center;
 }
 
+#landingSection3 p {
+  font-size: larger;
+}
+
+.aboutLink {
+  text-decoration: none;
+  color: black;
+}
+
+#landingSection2, 
+#landingSection4 {
+  background-color: #344d41;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#landingSection3 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+@media (max-width: 768px){
+  #landingSection3 {
+    flex-direction: column-reverse;
+  }
+}
+
+.text-3 {
+  padding-right: 5%;
+}
+
 #landingCreateButton {
-  width: 150px;
+  transition: background-color 0.2s, color 0.2s;
+  font-family: "Lucida Console", "Courier New", monospace;
+  background-color: #344d41;
+  border: 2px solid #FFF;
+  border-radius: 0px;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  padding-left: 4rem;
+  padding-right: 4rem;
+  color: #FFF;
+}
+
+#landingCreateButton:hover {
+  background-color: #FFF;
+  color: #344d41;
 }
 
 .eventBox {
@@ -154,6 +222,7 @@ form {
   overflow: hidden;
   margin: 0 auto;
 }
+
 #aboutColumns{
   max-width: 100vw;
 }
@@ -214,9 +283,9 @@ form {
 }
 
 .is-custom {
-  background: linear-gradient(to right, white 50%,  #253551 50%);
+  background: linear-gradient(to right, white 50%,  #344d41 50%);
   background-size: 200% 100%;
-  transition: background-position 0.5s, color 0.5s;
+  transition: background-position 0.3s, color 0.3s;
   transition-timing-function: ease-in;
   color: black; 
 }
