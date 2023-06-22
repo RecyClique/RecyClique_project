@@ -56,6 +56,8 @@ nav a {
 
 .navbar-item {
   font-size: large;
+  /* color: #344d41; */
+  font-weight: 500;
 }
 
 form {
@@ -285,7 +287,7 @@ form {
 .is-custom {
   background: linear-gradient(to right, white 50%,  #344d41 50%);
   background-size: 200% 100%;
-  transition: background-position 0.3s, color 0.3s;
+  transition: background-position 0.3s color 0.3s;
   transition-timing-function: ease-in;
   color: black; 
 }
@@ -311,7 +313,7 @@ form {
 .article-container {
   display: flex;
   align-items: center;
-  margin-left: 30px;
+  margin-left: 40px;
 }
 
 .article-content {
@@ -322,7 +324,9 @@ form {
   width: 200px;
   height: 150px;
   margin-left: auto;
-  margin: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 30px;
 }
 
 
