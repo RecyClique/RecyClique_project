@@ -20,25 +20,21 @@ class Event {
     return event ? new Event(event) : null;
   }
 
-  static async create(newEvent) {
-    const {
-      organizer_id,
-      type,
-      title,
-      start_date,
-      end_date,
-      start_time,
-      end_time,
-      location,
-      borough,
-      description,
-      image,
-    } = newEvent;
-    const query = `
-    INSERT INTO events (organizer_id, type, title, start_date, end_date, start_time, end_time, location, borough, description, image)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    RETURNING *
-  `;
+  static async create(
+    organizer_id,
+    type,
+    title,
+    start_date,
+    end_date,
+    start_time,
+    end_time,
+    location,
+    borough,
+    description,
+    imageUrl,
+  ) {
+    const query = `INSERT INTO events (organizer_id, type, title, start_date, end_date, start_time, end_time, location, borough, description, image)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING *`;
     const {
       rows: [event],
     } = await knex.raw(query, [
@@ -52,18 +48,9 @@ class Event {
       location,
       borough,
       description,
-      image,
+      imageUrl,
     ]);
-
-    // When an event is created, the organizer is also automatically added as a participant
-    const userEventQuery = `
-    INSERT INTO user_events (user_id, event_id)
-    VALUES (?, ?)
-    RETURNING *
-  `;
-    await knex.raw(userEventQuery, [organizer_id, event.id]);
-
-    return event;
+    return new Event(event);
   }
 
   static async update(id, updatedEvent) {
