@@ -110,6 +110,11 @@ const Events = () => {
                             <p>{event.description}</p>
                           </details>
                         </div>
+                  
+                        <figure class="image is-128x128">
+                          <img src="https://bulma.io/images/placeholders/128x128.png"/>
+                        </figure>
+                                                
                       </div>
                     </div>
                   </> : null)
@@ -131,7 +136,7 @@ const Events = () => {
                       <div>
                         <h1 className='is-size-5 has-text-weight-bold mt-4'>Description</h1>
                         <p>{event.description}</p>
-                        {/* <img>{event.image}</img> */}
+                        <img>{event.image}</img>
                         <button onClick={openModal}>Description</button>
                         
                       </div>
