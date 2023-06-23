@@ -13,35 +13,35 @@ exports.seed = async (knex) => {
     "Paulino",
     "jasonpaulino",
     "jasonp0830@gmail.com",
-    "123",
+    "123"
   );
   await User.create(
     "Randy",
     "Pichardo",
     "randypichardo",
     "randypichardo1987@gmail.com",
-    "123",
+    "123"
   );
   await User.create(
     "Staceyann",
     "King",
     "staceyannking",
     "staceyannking01@gmail.com",
-    "123",
+    "123"
   );
   await User.create(
     "Magdalena",
     "Gero",
     "magdalenagero",
     "magdalenamgero@gmail.com",
-    "123",
+    "123"
   );
   await User.create(
     "Shaina",
     "Guzman",
     "shainaguzman",
     "shainaguzman0624@gmail.com",
-    "123",
+    "123"
   );
 
   // Events
@@ -57,7 +57,7 @@ exports.seed = async (knex) => {
     "Central Park",
     "Manhattan",
     "Join us for a cleanup event at Central Park. Bring your friends!",
-    "https://example.com/images/cleanup.jpg",
+    "https://example.com/images/cleanup.jpg"
   );
 
   await Event.create(
@@ -71,7 +71,49 @@ exports.seed = async (knex) => {
     "Brooklyn Library",
     "Brooklyn",
     "Join us for a book exchange event at Brooklyn Library. Bring books you'd like to swap!",
-    "https://example.com/images/book_exchange.jpg",
+    "https://example.com/images/book_exchange.jpg"
+  );
+
+  await Event.create(
+    2,
+    "Cleanup",
+    "Beach Cleanup",
+    new Date(2023, 7, 15), // August 15, 2023
+    new Date(2023, 7, 15), // August 15, 2023
+    "08:00:00", // 8 AM
+    "12:00:00", // 12 PM
+    "Coney Island Beach",
+    "Brooklyn",
+    "Join us for a cleanup event at Coney Island Beach. Let's save our oceans!",
+    "https://example.com/images/beach_cleanup.jpg"
+  );
+
+  await Event.create(
+    3,
+    "Exchange",
+    "Clothes Exchange",
+    new Date(2023, 8, 30), // September 30, 2023
+    new Date(2023, 8, 30), // September 30, 2023
+    "11:00:00", // 11 AM
+    "15:00:00", // 3 PM
+    "Times Square",
+    "Manhattan",
+    "Join us for a clothes exchange event at Times Square. Bring clothes you'd like to swap!",
+    "https://example.com/images/clothes_exchange.jpg"
+  );
+
+  await Event.create(
+    4,
+    "Cleanup",
+    "Street Cleanup",
+    new Date(2023, 9, 5), // October 5, 2023
+    new Date(2023, 9, 5), // October 5, 2023
+    "09:00:00", // 9 AM
+    "13:00:00", // 1 PM
+    "Broadway",
+    "Manhattan",
+    "Join us for a cleanup event at Broadway. Let's keep our city clean!",
+    "https://example.com/images/street_cleanup.jpg"
   );
 
   // User Events
