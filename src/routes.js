@@ -39,5 +39,6 @@ Router.delete(
   "/users/:userId/events/:eventId",
   userEventsController.deleteUserEvent,
 );
+Router.post("/users/:userId/events/:eventId", userEventsController.create);
 
 module.exports = Router;

@@ -11,7 +11,7 @@ const Dashboard = () => {
     const fetchData = async () => {
       const promises = [
         listAllCreated(currentUser.id),
-        listAllJoined(currentUser.id)
+        listAllJoined(currentUser.id),
       ];
 
       const [result1, result2] = await Promise.all(promises);
@@ -19,9 +19,10 @@ const Dashboard = () => {
       setCreated(result1);
     };
 
-    fetchData();
-    // console.log(created? created[0]: null);
-    // console.log(joined? joined[0]: null);
+    if (currentUser) {
+      // Ensure currentUser is defined before running fetchData.
+      fetchData();
+    }
   }, [currentUser]);
 
   useEffect(() => {

@@ -31,13 +31,9 @@ class Event {
     location,
     borough,
     description,
-    imageUrl,
+    image,
   ) {
-    const query = `INSERT INTO events (organizer_id, type, title, start_date, end_date, start_time, end_time, location, borough, description, image)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING *`;
-    const {
-      rows: [event],
-    } = await knex.raw(query, [
+    const event = {
       organizer_id,
       type,
       title,
@@ -48,9 +44,11 @@ class Event {
       location,
       borough,
       description,
-      imageUrl,
-    ]);
-    return new Event(event);
+      image,
+    };
+
+    const [newEvent] = await knex("events").insert(event).returning("*");
+    return new Event(newEvent);
   }
 
   static async update(id, updatedEvent) {

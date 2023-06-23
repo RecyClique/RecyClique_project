@@ -46,34 +46,33 @@ exports.seed = async (knex) => {
 
   // Events
   await Event.deleteAll();
-  await Event.create({
-    organizer_id: 1,
-    type: "Cleanup",
-    title: "Park Cleanup",
-    start_date: new Date(2023, 6, 12), // July 12, 2023
-    end_date: new Date(2023, 6, 12), // July 12, 2023
-    start_time: "10:00:00", // 10 AM
-    end_time: "14:00:00", // 2 PM
-    location: "Central Park",
-    borough: "Manhattan",
-    description:
-      "Join us for a cleanup event at Central Park. Bring your friends!",
-    image: "https://example.com/images/cleanup.jpg",
-  });
-  await Event.create({
-    organizer_id: 1,
-    type: "Exchange",
-    title: "Book Exchange",
-    start_date: new Date(2023, 6, 20), // July 20, 2023
-    end_date: new Date(2023, 6, 21), // July 21, 2023
-    start_time: "15:00:00", // 3 PM
-    end_time: "19:00:00", // 7 PM
-    location: "Brooklyn Library",
-    borough: "Brooklyn",
-    description:
-      "Join us for a book exchange event at Brooklyn Library. Bring books you'd like to swap!",
-    image: "https://example.com/images/book_exchange.jpg",
-  });
+  await Event.create(
+    1,
+    "Cleanup",
+    "Park Cleanup",
+    new Date(2023, 6, 12), // July 12, 2023
+    new Date(2023, 6, 12), // July 12, 2023
+    "10:00:00", // 10 AM
+    "14:00:00", // 2 PM
+    "Central Park",
+    "Manhattan",
+    "Join us for a cleanup event at Central Park. Bring your friends!",
+    "https://example.com/images/cleanup.jpg",
+  );
+
+  await Event.create(
+    1,
+    "Exchange",
+    "Book Exchange",
+    new Date(2023, 6, 20), // July 20, 2023
+    new Date(2023, 6, 21), // July 21, 2023
+    "15:00:00", // 3 PM
+    "19:00:00", // 7 PM
+    "Brooklyn Library",
+    "Brooklyn",
+    "Join us for a book exchange event at Brooklyn Library. Bring books you'd like to swap!",
+    "https://example.com/images/book_exchange.jpg",
+  );
 
   // User Events
   await UserEvent.deleteAll();
