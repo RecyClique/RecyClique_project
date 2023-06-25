@@ -2,19 +2,15 @@ import { useContext, useState } from "react";
 import { createEvent } from "../adapters/events-adapter";
 import CurrentUserContext from "../contexts/current-user-context";
 
-
 const EventForm = ({ isOpen, onClose }) => {
-
   const { currentUser } = useContext(CurrentUserContext);
 
-  const [fileName, setFileName] = useState('File name...');
-
+  const [fileName, setFileName] = useState("File name...");
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    setFileName(file ? file.name : ''); // Update the file name or set it to an empty string if no file is selected
+    setFileName(file ? file.name : ""); // Update the file name or set it to an empty string if no file is selected
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -107,18 +103,17 @@ const EventForm = ({ isOpen, onClose }) => {
                   <option>Staten Island</option>
                 </select>
               </div>
-              {/* <label htmlFor="image">Event image:</label>
-              <input
-                type="file"
-                id="image"
-                name="image"
-                accept="image/*"
-                className='button'
-              ></input> */}
               <label htmlFor="image">Event image:</label>
               <div className="file is-boxed has-name">
                 <label className="file-label">
-                  <input className="file-input" type="file" name="resume" onChange={handleFileChange} />
+                  <input
+                    name="image"
+                    className="file-input"
+                    accept="image/*"
+                    id="image"
+                    type="file"
+                    onChange={handleFileChange}
+                  />
                   <span className="file-cta custom-file-input">
                     <span className="file-icon">
                       <i className="fas fa-upload"></i>
@@ -128,8 +123,6 @@ const EventForm = ({ isOpen, onClose }) => {
                   <span className="file-name">{fileName}</span>
                 </label>
               </div>
-
-
             </div>
           </form>
         </section>
