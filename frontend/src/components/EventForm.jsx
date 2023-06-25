@@ -18,7 +18,7 @@ const EventForm = ({ isOpen, onClose }) => {
     onClose();
 
     const result = await createEvent(formData);
-    console.log("result", result);
+    return result;
   };
 
   return (
