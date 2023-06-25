@@ -6,6 +6,7 @@ class Event {
       SELECT events.*, username 
       FROM events 
       JOIN users on events.organizer_id = users.id
+      ORDER BY events.created_at DESC
     `;
     const { rows } = await knex.raw(query);
     console.log(rows);

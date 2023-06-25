@@ -25,6 +25,7 @@ class UserEvent {
       FROM user_events
       JOIN events ON user_events.event_id = events.id
       WHERE user_events.user_id = ? AND events.organizer_id != ?
+      ORDER BY user_events.created_at DESC
     `;
     const { rows: events } = await knex.raw(query, [userId, userId]);
     return events;
@@ -35,6 +36,7 @@ class UserEvent {
       SELECT events.*
       FROM events
       WHERE events.organizer_id = ?
+      ORDER BY events.created_at DESC
     `;
     const { rows: events } = await knex.raw(query, [userId]);
     return events;
