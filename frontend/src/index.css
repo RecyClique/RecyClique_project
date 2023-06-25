@@ -287,7 +287,7 @@ form {
 .is-custom {
   background: linear-gradient(to right, white 50%,  #344d41 50%);
   background-size: 200% 100%;
-  transition: background-position 0.3s color 0.3s;
+  transition: background-position 0.3s, color 0.3s;
   transition-timing-function: ease-in;
   color: black; 
 }
@@ -329,7 +329,10 @@ form {
   margin-right: 30px;
 }
 
-
+.custom-file-input{
+  background-color: #344d41;
+  color: white;
+}
 
 @media only screen and (max-width: 550px)  {
   #logInBox, #signUpBox {

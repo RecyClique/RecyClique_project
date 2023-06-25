@@ -1,9 +1,20 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { createEvent } from "../adapters/events-adapter";
 import CurrentUserContext from "../contexts/current-user-context";
 
+
 const EventForm = ({ isOpen, onClose }) => {
+
   const { currentUser } = useContext(CurrentUserContext);
+
+  const [fileName, setFileName] = useState('File name...');
+
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setFileName(file ? file.name : ''); // Update the file name or set it to an empty string if no file is selected
+  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -96,24 +107,40 @@ const EventForm = ({ isOpen, onClose }) => {
                   <option>Staten Island</option>
                 </select>
               </div>
-              <label htmlFor="image">Event image:</label>
+              {/* <label htmlFor="image">Event image:</label>
               <input
                 type="file"
                 id="image"
                 name="image"
                 accept="image/*"
-              ></input>
+                className='button'
+              ></input> */}
+              <label htmlFor="image">Event image:</label>
+              <div className="file is-boxed has-name">
+                <label className="file-label">
+                  <input className="file-input" type="file" name="resume" onChange={handleFileChange} />
+                  <span className="file-cta custom-file-input">
+                    <span className="file-icon">
+                      <i className="fas fa-upload"></i>
+                    </span>
+                    <span className="file-label">Choose a file...</span>
+                  </span>
+                  <span className="file-name">{fileName}</span>
+                </label>
+              </div>
+
+
             </div>
-            <footer className="modal-card-foot">
-              <button className="button" form="eventForm" type="submit">
-                Publish
-              </button>
-              <button className="button" onClick={onClose}>
-                Cancel
-              </button>
-            </footer>
           </form>
         </section>
+        <footer className="modal-card-foot">
+          <button className="button is-custom" form="eventForm" type="submit">
+            Publish
+          </button>
+          <button className="button" onClick={onClose}>
+            Cancel
+          </button>
+        </footer>
       </div>
     </div>
   );
