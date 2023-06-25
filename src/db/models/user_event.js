@@ -11,6 +11,11 @@ class UserEvent {
       rows: [userEvent],
     } = await knex.raw(query, [userId, eventId]);
 
+    // Increase participants_count
+    await knex("events")
+      .where({ id: eventId })
+      .increment("participants_count", 1);
+
     return userEvent;
   }
 
@@ -41,6 +46,11 @@ class UserEvent {
       WHERE user_id = ? AND event_id = ?
     `;
     await knex.raw(query, [userId, eventId]);
+
+    // Decrease participants_count
+    await knex("events")
+      .where({ id: eventId })
+      .decrement("participants_count", 1);
   }
 
   static async deleteAll() {
@@ -49,9 +59,3 @@ class UserEvent {
 }
 
 module.exports = UserEvent;
-
-/*
-
-list(userId) will return all events a user has joined excluding their own creation.
-
-*/

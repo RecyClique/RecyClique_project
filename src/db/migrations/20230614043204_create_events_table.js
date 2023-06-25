@@ -8,6 +8,7 @@ exports.up = (knex) => knex.schema.createTable("events", (table) => {
   table.foreign("organizer_id").references("users.id").onDelete("CASCADE");
   table.enu("type", ["Cleanup", "Exchange"]).notNullable();
   table.string("title").notNullable();
+  table.integer("participants_count").unsigned().defaultTo(1);
   table.date("start_date").notNullable();
   table.date("end_date");
   table.time("start_time").notNullable();
