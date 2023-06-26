@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import EventForm from "../components/EventForm";
 import { getAllEvents } from "../adapters/events-adapter";
 import CurrentUserContext from "../contexts/current-user-context";
-import { joinEvent, listAllJoined } from "../adapters/user-adapter";
-// import Modal from "../adapters/components";
+import { joinEvent, listAllJoined } from "../adapters/user-adapter";// import Modal from "../adapters/components";
+import "../index.css";
 
 const Events = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
@@ -77,42 +77,40 @@ const Events = () => {
 
   return (
     <>
-      <div>
-        <h1 className='title has-text-centered'>Events</h1>
+      <div style={{ background: '#344d41' }} >
+        <h1 className='title has-text-centered' style={{ color: 'white', padding: '20px' }}>Events</h1>
         <div className='is-flex is-justify-content-center mb-5'>
-          <button className='button' onClick={openModal}>Create Event</button>
+          <button className='button' onClick={openModal} style={{ background: '#344d41', color: 'white', border: '2px solid #fff', borderRadius: '0px' }}>Create Event</button>
         </div>
-        <div>
+        <div style={{display:'grid', gridTemplateColumns: 'repeat(5, 1fr)'}}>
           {
             events.map((event) => {
               if (currentUser) {
                 return (
                   joined.has(event.id) === false && Number(event.organizer_id) !== Number(currentUser.id) ? <>
-                    <div className='box eventBox' id={`eventId: ${event.id}`}>
-                      <div>
-                        <h1 className='title'>{event.title}</h1>
-                        <p>{event.borough}</p>
-                        <p>{event.location}</p>
-                        <p>{event.start_date === event.end_date ? event.start_date.substring(0, 10) : `${event.start_date.substring(0, 10)} - ${event.end_date.substring(0, 10)}`}</p>
+                    <div className='box eventBox' id={`eventId: ${event.id}`} style={{ borderRadius: '0px', display: 'flex', flexDirection: 'column', width: '20%' }}>
+                      <div className='eventCard'>
+                      <figure className="image" style={{ width: '100%' }}>
+                          <img src={event.image}/>
+                      </figure>
+                        <h1 className='title' style={{ paddingTop: '10px', fontSize: '20px'}}>{event.title}</h1>
+                        <div>
                         <p>{`${event.start_time} - ${event.end_time}`}</p>
+                        <p>{event.start_date === event.end_date ? event.start_date.substring(0, 10) : `${event.start_date.substring(0, 10)} - ${event.end_date.substring(0, 10)}`}</p>
+                        </div>
+                        <p style={{ color: '#9f9f9f' }}>{event.location}</p>
+                        <p style={{ color: '#9f9f9f' }}>{event.borough}, NY</p>
+                          <details style={{ }}>
+                            <summary style={{ cursor: 'pointer'}}>Description</summary>
+                            <p>{event.description}</p>
+                          </details>
                       </div>
                       <div className='cardSec2'>
-                        <button className='button is-primary' onClick={() => eventClick(event)}>Join Event</button>
+                        <button className='button' style={{ background: '#FFF', color: '#344d41', border: '2px solid #344d41', borderRadius: '0px', display: 'flex', alignSelf: 'flex-start' }} onClick={() => eventClick(event)}>Join Event</button>
                       </div>
                       <div>
                         {/* <h1 className='is-size-5 has-text-weight-bold mt-4'>Description</h1> */}
                         {/* <p>{event.description}</p> */}
-                        <div>
-                          <details>
-                            <summary>Description</summary>
-                            <p>{event.description}</p>
-                          </details>
-                        </div>
-
-                        <figure className="image is-128x128">
-                          <img src="https://bulma.io/images/placeholders/128x128.png"/>
-                        </figure>
-
                       </div>
                     </div>
                   </> : null);
@@ -120,39 +118,32 @@ const Events = () => {
 
               return (
                 <>
-                  <div className="box eventBox" id={`eventId: ${event.id}`}>
-                    <div>
-                      <h1 className="title">{event.title}</h1>
-                      <p>{event.borough}</p>
-                      <p>{event.location}</p>
-                      <p>
-                        {event.start_date === event.end_date
-                          ? event.start_date.substring(0, 10)
-                          : `${event.start_date.substring(
-                            0,
-                            10,
-                          )} - ${event.end_date.substring(0, 10)}`}
-                      </p>
-                      <p>{`${event.start_time} - ${event.end_time}`}</p>
+                    <div className='box eventBox' id={`eventId: ${event.id}`} style={{ borderRadius: '0px', display: 'flex', flexDirection: 'column' }}>
+                      <div className='eventCard'>
+                      <figure className="image" style={{ width: '100%' }}>
+                          <img src={event.image}/>
+                      </figure>
+                        <h1 className='title' style={{ paddingTop: '10px', fontSize: '20px'}}>{event.title}</h1>
+                        <div>
+                        <p>{`${event.start_time} - ${event.end_time}`}</p>
+                        <p>{event.start_date === event.end_date ? event.start_date.substring(0, 10) : `${event.start_date.substring(0, 10)} - ${event.end_date.substring(0, 10)}`}</p>
+                        </div>
+                        <p style={{ color: '#9f9f9f' }}>{event.location}</p>
+                        <p style={{ color: '#9f9f9f' }}>{event.borough}, NY</p>
+                          <details style={{ }}>
+                            <summary style={{ cursor: 'pointer'}}>Description</summary>
+                            <p>{event.description}</p>
+                          </details>
+                      </div>
+                      <div className='cardSec2'>
+                        <button className='button' style={{ background: '#FFF', color: '#344d41', border: '2px solid #344d41', borderRadius: '0px', display: 'flex', alignSelf: 'flex-start' }} onClick={() => eventClick(event)}>Join Event</button>
+                      </div>
+                      <div>
+                        {/* <h1 className='is-size-5 has-text-weight-bold mt-4'>Description</h1> */}
+                        {/* <p>{event.description}</p> */}
+                      </div>
                     </div>
-                    <div className="cardSec2">
-                      <button
-                        className="button is-primary"
-                        onClick={() => eventClick(event)}
-                      >
-                        Join Event
-                      </button>
-                    </div>
-                    <div>
-                      <h1 className="is-size-5 has-text-weight-bold mt-4">
-                        Description
-                      </h1>
-                      <p>{event.description}</p>
-                      <button onClick={openModal}>Description</button>
-                      <img src={event.image} alt="Event" />
-                    </div>
-                  </div>
-                </>
+                  </>
               );
             })
           }
