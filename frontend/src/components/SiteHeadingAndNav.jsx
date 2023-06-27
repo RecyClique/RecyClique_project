@@ -1,6 +1,5 @@
 import { useNavigate, Link } from "react-router-dom";
 import { useContext, useState } from "react";
-import * as BulmaToast from "bulma-toast";
 import CurrentUserContext from "../contexts/current-user-context";
 import { getUser } from "../adapters/user-adapter";
 import { logUserOut } from "../adapters/auth-adapter";
@@ -9,21 +8,13 @@ export default function SiteHeadingAndNav() {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const [isBurgerToggled, setIsBurgerToggled] = useState(false);
   const burgerToggle = () => {
-    setIsBurgerToggled(!isBurgerToggled);
-  };
-  const navigate = useNavigate();
+    setIsBurgerToggled(!isBurgerToggled)
+  }
+  const navigate = useNavigate()
   const handleLogout = async () => {
-    const result = await logUserOut();
-    if (result) {
-      setCurrentUser(null);
-      BulmaToast.toast({
-        message: "Logged out!",
-        type: "is-success",
-        position: "top-center",
-        dismissible: true,
-        pauseOnHover: true,
-      });
-    }
+    logUserOut();
+    setCurrentUser(null);
+    navigate('/');
   };
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
@@ -48,39 +39,39 @@ export default function SiteHeadingAndNav() {
           <Link to='/' className="navbar-item">
             Home
           </Link>
-          {!currentUser
-            ? <>
+          {!currentUser ?
+            <>
               <Link to='/login' className="navbar-item">
                 Log in
               </Link>
               <Link to='sign-up' className="navbar-item">
                 Sign Up
               </Link>
+              <Link to='/events' className="navbar-item">
+            Events
+          </Link>
+          <Link to='/newsFeed' className="navbar-item">
+            News Feed
+          </Link>
             </> : <>
               <a className="navbar-item" onClick={handleLogout}>Log Out</a>
               <Link to='/dashboard' className="navbar-item">
                 Dashboard
               </Link>
+              <Link to='/events' className="navbar-item">
+            Events
+          </Link>
+          <Link to='/newsFeed' className="navbar-item">
+            News Feed
+          </Link>
             </>}
           <Link to='/about' className="navbar-item">
             About Us
           </Link>
-          <Link to='/newsFeed' className="navbar-item">
-            News Feed
-          </Link>
-          <Link to='/events' className="navbar-item">
-            Events
-          </Link>
-          <Link to='/newsFeed' className="navbar-item">
-            News Feed
-          </Link>
-          <Link to='/events' className="navbar-item">
-            Events
-          </Link>
         </div>
       </div>
     </nav>
-  );
+  )
 
   // return <header>
   //   <a id='logo' href='/'>React/Express Auth</a>

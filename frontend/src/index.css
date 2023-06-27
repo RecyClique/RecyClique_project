@@ -107,7 +107,7 @@ form {
   border: 0;
 }
 
-#eventForm{
+#eventForm {
   border: 0;
   width: 80%;
 }
@@ -138,7 +138,7 @@ form {
 #landingSection2 h1,
 #landingSection2 p,
 #landingSection4 h1,
-#landingSection4 p {  
+#landingSection4 p {
   color: white;
 }
 
@@ -159,7 +159,7 @@ form {
   color: black;
 }
 
-#landingSection2, 
+#landingSection2,
 #landingSection4 {
   background-color: #344d41;
   display: flex;
@@ -175,7 +175,8 @@ form {
   align-items: center;
   text-align: center;
 }
-@media (max-width: 768px){
+
+@media (max-width: 768px) {
   #landingSection3 {
     flex-direction: column-reverse;
   }
@@ -217,7 +218,7 @@ form {
 }
 
 .aboutImg {
-  display:block;
+  display: block;
   width: 300px;
   height: 400px;
   object-fit: cover;
@@ -225,7 +226,7 @@ form {
   margin: 0 auto;
 }
 
-#aboutColumns{
+#aboutColumns {
   max-width: 100vw;
 }
 
@@ -262,7 +263,7 @@ form {
   margin: 30px 0;
 }
 
-#signUpBox{
+#signUpBox {
   width: 550px;
   height: 600px;
   background-color: white;
@@ -271,40 +272,43 @@ form {
   margin: 30px 0;
 }
 
-.logInButton{
-  width:100%;
+.logInButton {
+  width: 100%;
 }
 
 #logInForm {
   border: 0;
   width: 80%;
-  height:90%;
+  height: 90%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
 }
 
 .is-custom {
-  background: linear-gradient(to right, white 50%,  #344d41 50%);
+  background: linear-gradient(to right, white 50%, #344d41 50%);
   background-size: 200% 100%;
   transition: background-position 0.3s, color 0.3s;
   transition-timing-function: ease-in;
-  color: black; 
+  color: black;
 }
 
 .is-custom:hover {
   background-position: -100% 0;
-  color:white
+  color: white
 }
 
 
-#errorTextDiv{
+#errorTextDiv {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
 }
 
-#startTime, #endTime, #startDate, #endDate{
+#startTime,
+#endTime,
+#startDate,
+#endDate {
   border-radius: 5px;
   border: 1px solid lightgrey;
   padding: 4px;
@@ -337,19 +341,74 @@ form {
   margin-bottom: 20px;
 }
 
-.custom-file-input{
+.custom-file-input {
   background-color: #344d41;
   color: white;
 }
 
-@media only screen and (max-width: 550px)  {
-  #logInBox, #signUpBox {
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+
+@media (max-width: 1580px) {
+  .grid-container {
+    grid-template-columns: repeat(4, 1fr);
+    /* Display 3 columns when viewport is smaller */
+  }
+}
+
+@media (max-width: 1225px) {
+  .grid-container {
+    grid-template-columns: repeat(3, 1fr);
+    /* Display 3 columns when viewport is smaller */
+  }
+}
+
+@media (max-width: 910px) {
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr);
+    /* Display 2 columns when viewport is even smaller */
+  }
+}
+@media (max-width: 620px) {
+  .grid-container {
+    grid-template-columns: 1fr;
+    /* Display 2 columns when viewport is even smaller */
+  }
+}
+
+@media only screen and (max-width: 550px) {
+
+  #logInBox,
+  #signUpBox {
     box-shadow: rgba(100, 100, 111, 0) 0px 7px 29px 0px;
   }
+
   #footer {
     grid-template-columns: 1fr;
   }
-  #footerNav{
-    display:none;
+
+  #footerNav {
+    display: none;
+  }
+}
+
+@media (max-width: 550px) {
+  .article-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .article-image {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .article-content {
+    margin: 20px;
+    font-size: 16px;
   }
 }
