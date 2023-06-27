@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { useNavigate, Navigate, Link } from "react-router-dom";
+import * as BulmaToast from "bulma-toast";
 import CurrentUserContext from "../contexts/current-user-context";
 import { createUser } from "../adapters/user-adapter";
 
@@ -19,17 +20,25 @@ export default function SignUpPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // setErrorText('');
-    // if (!username || !password) return setErrorText('Missing username or password');
     const formData = new FormData(e.target);
     const userData = {};
-    for (let [key, value] of formData.entries()) {
+    for (const [key, value] of formData.entries()) {
       userData[key] = value;
     }
     const [user, error] = await createUser(userData);
     if (error) return setErrorText(error.statusText);
 
     setCurrentUser(user);
+
+    // Add a success toast notification
+    BulmaToast.toast({
+      message: "You've successfully signed up!",
+      type: "is-success",
+      position: "top-center",
+      dismissible: true,
+      pauseOnHover: true,
+    });
+
     navigate('/');
   };
 
@@ -100,11 +109,6 @@ export default function SignUpPage() {
             required
             className='input'
           />
-
-          {/* In reality, we'd want a LOT more validation on signup, so add more things if you have time
-            <label htmlFor="password-confirm">Password Confirm</label>
-            <input autoComplete="off" type="password" id="password-confirm" name="passwordConfirm" />
-          */}
 
           <button className='button is-rounded mb-3 is-custom' type='submit'>Sign Up Now!</button>
           {!!errorText && <p>{errorText}</p>}

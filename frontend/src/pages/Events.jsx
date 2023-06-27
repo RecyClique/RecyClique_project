@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
+import * as BulmaToast from "bulma-toast";
 import EventForm from "../components/EventForm";
 import { getAllEvents } from "../adapters/events-adapter";
 import CurrentUserContext from "../contexts/current-user-context";
@@ -19,14 +20,37 @@ const Events = () => {
   };
   const navigate = useNavigate();
   const eventClick = async (event) => {
-    if (!currentUser) navigate('/login');
+    if (!currentUser) navigate("/login");
+
     const options = {
       userId: currentUser.id,
       eventId: event.id,
     };
-    await joinEvent(options);
-    window.location.reload();
-  };
+
+    try {
+      await joinEvent(options);
+
+      BulmaToast.toast({
+        message: `Successfully joined the event!`,
+        type: "is-success",
+        position: "top-center",
+        dismissible: true,
+        pauseOnHover: true,
+      });
+
+      // Reload to reflect the changes.
+      window.location.reload();
+    } catch (error) {
+      BulmaToast.toast({
+        message: `Failed to join the event.`,
+        type: "is-danger",
+        position: "top-center",
+        dismissible: true,
+        pauseOnHover: true,
+      });
+      console.error("Error joining event:", error);
+    }
+  }; 
 
   const [events, setEvents] = useState([]);
 
