@@ -118,10 +118,10 @@ const Events = () => {
                   joined.has(event.id) === false && Number(event.organizer_id) !== Number(currentUser.id) && toggle ? <>
                     <div className='box eventBox my-5' id={`eventId: ${event.id}`} style={{ borderRadius: '0px', display: 'flex', flexDirection: 'column' }}>
                       <div className='eventCard' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', height: '100%' }}>
+                      <p className='has-text-weight-bold is-size-5'>{event.username}</p>
                         <figure className="image" style={{ width: '100%' }}>
                           <img src={event.image} />
                         </figure>
-                        <p className='has-text-weight-bold'>Event Creator: <span className='has-text-weight-normal'>{event.username}</span></p>
                         <h1 className='title' style={{ paddingTop: '10px', fontSize: '20px' }}>{event.title}</h1>
                         <div>
                           <p>{`${convertToUSTime(event.start_time)} - ${convertToUSTime(event.end_time)}`}</p>
