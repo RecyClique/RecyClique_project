@@ -10,7 +10,6 @@ import "../index.css";
 const Events = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [toggle, setToggle] = useState(1)
 
   const openModal = () => {
     currentUser ? setIsModalOpen(true) : navigate('/login');
@@ -28,37 +27,14 @@ const Events = () => {
       userId: currentUser.id,
       eventId: event.id,
     };
-
-    try {
-      await joinEvent(options);
-
-      BulmaToast.toast({
-        message: `Successfully joined the event!`,
-        type: "is-success",
-        position: "top-center",
-        dismissible: true,
-        pauseOnHover: true,
-      });
-
-      // Update the toggle state to re-render the components that depend on it
-      setToggle(toggle + 1);
-    } catch (error) {
-      BulmaToast.toast({
-        message: `Failed to join the event.`,
-        type: "is-danger",
-        position: "top-center",
-        dismissible: true,
-        pauseOnHover: true,
-      });
-      console.error("Error joining event:", error);
-    }
+    await joinEvent(options);
+    window.location.reload();
   };
 
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
     getAllEvents().then(setEvents);
-    console.log(events)
   }, []);
 
   const [joined, setJoined] = useState(new Set());
@@ -74,65 +50,68 @@ const Events = () => {
       setJoined(eventsJoined);
     };
     joinedChecker();
-  }, [currentUser, toggle]);
+  }, [currentUser]);
 
-  function convertToUSTime(militaryTime) {
-    const timeComponents = militaryTime.split(':');
-    let hours = parseInt(timeComponents[0]);
-    let minutes = parseInt(timeComponents[1]);
+  // const joinedChecker = async () => {
+  //   const result = await listAllJoined(currentUser.id);
+  //   const options = result[0]
+  //   const eventsJoined = new Set();
+  //   for (let event of options) {
+  //     eventsJoined.add(event.id)
+  //     // console.log('TEST' + event.id)
+  //   }
+  //   // console.log(eventsJoined)
+  //   return eventsJoined;
+  // }
+  // let joined;
+  // const eventChecker = async () => {
+  //   joined = await joinedChecker();
+  // }
+  // eventChecker();
 
-    let period = "AM";
-    if (hours >= 12) {
-      period = "PM";
-      if (hours > 12) {
-        hours -= 12;
-      }
-    }
+  // function MyComponent() {
+  //   const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const usTime = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")} ${period}`;
+  //   const openModal = () => {
+  //     setIsModalOpen(true);
+  //   };
 
-    return usTime;
-  }
-
-  function formatDate(dateString) {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', options);
-  }
+  //   const closeModal = () => {
+  //     setIsModalOpen(false);
+  //   };
 
   return (
     <>
-      <div style={{ background: '#344d41'}} >
+      <div style={{ background: '#344d41' }} >
         <h1 className='title has-text-centered' style={{ color: 'white', padding: '20px' }}>Events</h1>
         <div className='is-flex is-justify-content-center mb-5'>
           <button className='button' onClick={openModal} style={{ background: '#344d41', color: 'white', border: '2px solid #fff', borderRadius: '0px' }}>Create Event</button>
         </div>
-        <div className='grid-container'>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)' }}>
           {
             events.map((event) => {
               if (currentUser) {
                 return (
-                  joined.has(event.id) === false && Number(event.organizer_id) !== Number(currentUser.id) && toggle? <>
-                    <div className='box eventBox my-5' id={`eventId: ${event.id}`} style={{ borderRadius: '0px', display: 'flex', flexDirection: 'column' }}>
-                      <div className='eventCard' style={{display:'flex', flexDirection:'column', justifyContent:'space-evenly', height:'100%'}}>
-                      <p className='has-text-weight-bold'>Event Creator: <span className='has-text-weight-normal'>{event.username}</span></p>
-                        <figure className="image" style={{ width: '100%' }}>
-                          <img src={event.image} />
-                        </figure>
+                  joined.has(event.id) === false && Number(event.organizer_id) !== Number(currentUser.id) ? <>
+                    <div className='box eventBox' id={`eventId: ${event.id}`} style={{ borderRadius: '0px', display: 'flex', flexDirection: 'column', width: '20%' }}>
+                      <div className='eventCard'>
+                      <figure className="image" style={{ width: '100%' }}>
+                          <img src={event.image}/>
+                      </figure>
                         <h1 className='title' style={{ paddingTop: '10px', fontSize: '20px' }}>{event.title}</h1>
                         <div>
-                          <p>{`${convertToUSTime(event.start_time)} - ${convertToUSTime(event.end_time)}`}</p>
-                          <p>{event.start_date === event.end_date ? formatDate(event.start_date.substring(0, 10)) : `${formatDate(event.start_date.substring(0, 10))} - ${formatDate(event.end_date.substring(0, 10))}`}</p>
+                        <p>{`${event.start_time} - ${event.end_time}`}</p>
+                        <p>{event.start_date === event.end_date ? event.start_date.substring(0, 10) : `${event.start_date.substring(0, 10)} - ${event.end_date.substring(0, 10)}`}</p>
                         </div>
                         <p style={{ color: '#9f9f9f' }}>{event.location}</p>
                         <p style={{ color: '#9f9f9f' }}>{event.borough}, NY</p>
-                        <details style={{}}>
-                          <summary style={{ cursor: 'pointer' }}>Description</summary>
-                          <p>{event.description}</p>
-                        </details>
+                          <details style={{ }}>
+                            <summary style={{ cursor: 'pointer' }}>Description</summary>
+                            <p>{event.description}</p>
+                          </details>
                       </div>
                       <div className='cardSec2'>
-                        <button className='button my-3' style={{ background: '#FFF', color: '#344d41', border: '2px solid #344d41', borderRadius: '0px', display: 'flex', alignSelf: 'flex-start' }} onClick={() => eventClick(event)}>Join Event</button>
+                        <button className='button' style={{ background: '#FFF', color: '#344d41', border: '2px solid #344d41', borderRadius: '0px', display: 'flex', alignSelf: 'flex-start' }} onClick={() => eventClick(event)}>Join Event</button>
                       </div>
                       <div>
                       </div>
@@ -141,27 +120,33 @@ const Events = () => {
               }
 
               return (
-                toggle? <>
-                  <div className='box eventBox my-5' id={`eventId: ${event.id}`} style={{ borderRadius: '0px', display: 'flex', flexDirection: 'column', width:'300px' }}>
-                    <div className='eventCard' style={{display:'flex', flexDirection:'column', justifyContent:'space-around', height:'100%'}}>
-                      <p className='has-text-weight-bold'>Event Creator: <span className='has-text-weight-normal'>{event.username}</span></p>
+                <>
+                    <div className='box eventBox' id={`eventId: ${event.id}`} style={{ borderRadius: '0px', display: 'flex', flexDirection: 'column' }}>
+                      <div className='eventCard'>
                       <figure className="image" style={{ width: '100%' }}>
-                        <img src={event.image} />
+                          <img src={event.image}/>
                       </figure>
-                      <h1 className='title' style={{ paddingTop: '10px', fontSize: '20px' }}>{event.title}</h1>
-                      <div>
-                        <p>{`${convertToUSTime(event.start_time)} - ${convertToUSTime(event.end_time)}`}</p>
-                        <p>{event.start_date === event.end_date ? formatDate(event.start_date.substring(0, 10)) : `${formatDate(event.start_date.substring(0, 10))} - ${formatDate(event.end_date.substring(0, 10))}`}</p>
+                        <h1 className='title' style={{ paddingTop: '10px', fontSize: '20px' }}>{event.title}</h1>
+                        <div>
+                        <p>{`${event.start_time} - ${event.end_time}`}</p>
+                        <p>{event.start_date === event.end_date ? event.start_date.substring(0, 10) : `${event.start_date.substring(0, 10)} - ${event.end_date.substring(0, 10)}`}</p>
+                        </div>
+                        <p style={{ color: '#9f9f9f' }}>{event.location}</p>
+                        <p style={{ color: '#9f9f9f' }}>{event.borough}, NY</p>
+                          <details style={{ }}>
+                            <summary style={{ cursor: 'pointer' }}>Description</summary>
+                            <p>{event.description}</p>
+                          </details>
                       </div>
-                      <p style={{ color: '#9f9f9f' }}>{event.location}</p>
-                      <p style={{ color: '#9f9f9f' }}>{event.borough}, NY</p>
-                      <details style={{}}>
-                        <summary style={{ cursor: 'pointer' }}>Description</summary>
-                        <p>{event.description}</p>
-                      </details>
+                      <div className='cardSec2'>
+                        <button className='button' style={{ background: '#FFF', color: '#344d41', border: '2px solid #344d41', borderRadius: '0px', display: 'flex', alignSelf: 'flex-start' }} onClick={() => eventClick(event)}>Join Event</button>
+                      </div>
+                      <div>
+                        {/* <h1 className='is-size-5 has-text-weight-bold mt-4'>Description</h1> */}
+                        {/* <p>{event.description}</p> */}
+                      </div>
                     </div>
-                  </div>
-                </> : null
+                  </>
               );
             })
           }
