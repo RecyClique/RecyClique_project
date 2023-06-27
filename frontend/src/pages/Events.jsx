@@ -105,7 +105,7 @@ const Events = () => {
 
   return (
     <>
-      <div style={{ background: '#344d41'}} >
+      <div style={{ background: '#344d41' }} >
         <h1 className='title has-text-centered' style={{ color: 'white', padding: '20px' }}>Events</h1>
         <div className='is-flex is-justify-content-center mb-5'>
           <button className='button' onClick={openModal} style={{ background: '#344d41', color: 'white', border: '2px solid #fff', borderRadius: '0px' }}>Create Event</button>
@@ -115,13 +115,13 @@ const Events = () => {
             events.map((event) => {
               if (currentUser) {
                 return (
-                  joined.has(event.id) === false && Number(event.organizer_id) !== Number(currentUser.id) && toggle? <>
+                  joined.has(event.id) === false && Number(event.organizer_id) !== Number(currentUser.id) && toggle ? <>
                     <div className='box eventBox my-5' id={`eventId: ${event.id}`} style={{ borderRadius: '0px', display: 'flex', flexDirection: 'column' }}>
-                      <div className='eventCard' style={{display:'flex', flexDirection:'column', justifyContent:'space-evenly', height:'100%'}}>
-                      <p className='has-text-weight-bold'>Event Creator: <span className='has-text-weight-normal'>{event.username}</span></p>
+                      <div className='eventCard' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', height: '100%' }}>
                         <figure className="image" style={{ width: '100%' }}>
                           <img src={event.image} />
                         </figure>
+                        <p className='has-text-weight-bold'>Event Creator: <span className='has-text-weight-normal'>{event.username}</span></p>
                         <h1 className='title' style={{ paddingTop: '10px', fontSize: '20px' }}>{event.title}</h1>
                         <div>
                           <p>{`${convertToUSTime(event.start_time)} - ${convertToUSTime(event.end_time)}`}</p>
@@ -146,13 +146,14 @@ const Events = () => {
               }
 
               return (
-                toggle? <>
-                  <div className='box eventBox my-5' id={`eventId: ${event.id}`} style={{ borderRadius: '0px', display: 'flex', flexDirection: 'column', width:'300px' }}>
-                    <div className='eventCard' style={{display:'flex', flexDirection:'column', justifyContent:'space-around', height:'100%'}}>
-                      <p className='has-text-weight-bold'>Event Creator: <span className='has-text-weight-normal'>{event.username}</span></p>
+                toggle ? <>
+                  <div className='box eventBox my-5' id={`eventId: ${event.id}`} style={{ borderRadius: '0px', display: 'flex', flexDirection: 'column', width: '300px' }}>
+                    <div className='eventCard' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', height: '100%' }}>
+                    <p className='has-text-weight-bold is-size-5'>{event.username}</p>
                       <figure className="image" style={{ width: '100%' }}>
                         <img src={event.image} />
                       </figure>
+
                       <h1 className='title' style={{ paddingTop: '10px', fontSize: '20px' }}>{event.title}</h1>
                       <div>
                         <p>{`${convertToUSTime(event.start_time)} - ${convertToUSTime(event.end_time)}`}</p>
@@ -173,7 +174,7 @@ const Events = () => {
                       {/* <p>{event.description}</p> */}
                     </div>
                   </div>
-                </>: <></>
+                </> : <></>
               );
             })
           }

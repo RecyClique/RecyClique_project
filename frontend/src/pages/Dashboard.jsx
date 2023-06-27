@@ -73,7 +73,7 @@ const Dashboard = () => {
   return (
     <div style={{ background: 'white' }}>
       <div>
-        <h1 className="title has-text-centered">Dashboard</h1>
+        <h1 className="title has-text-centered">Welcome {currentUser.first_name} {currentUser.last_name}!</h1>
       </div>
 
 
@@ -89,13 +89,12 @@ const Dashboard = () => {
         <div className={currentTab !== 0 ? "is-hidden grid-container" : "grid-container"}>
 
           {
-            joined && toggle? joined[0].map(joinedEvent => {
+            joined && toggle ? joined[0].map(joinedEvent => {
               console.log('result2' + joinedEvent)
               return (
                 <>
                   <div className='box eventBox my-5' id={`eventId: ${joinedEvent.id}`} style={{ borderRadius: '0px', display: 'flex', flexDirection: 'column' }}>
-                    <div className='eventCard' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', height:'100%' }}>
-                      <p className='has-text-weight-bold'>Event Creator: <span className='has-text-weight-normal'>{joinedEvent.username}</span></p>
+                    <div className='eventCard' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', height: '100%' }}>
                       <figure className="image" style={{ width: '100%' }}>
                         <img src={joinedEvent.image} />
                       </figure>
@@ -147,7 +146,7 @@ const Dashboard = () => {
         </div> */}
         <div className={currentTab !== 2 ? "is-hidden" : ""} style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)' }}>
           {
-            created && toggle? created[0].map(createdEvent => {
+            created && toggle ? created[0].map(createdEvent => {
               console.log('result1' + createdEvent)
               return (
                 // <div className='box eventBox' id={'eventId: ' + createdEvent.id}>
@@ -168,8 +167,7 @@ const Dashboard = () => {
                 //     </div>
                 <>
                   <div className='box eventBox my-5' id={`eventId: ${createdEvent.id}`} style={{ borderRadius: '0px', display: 'flex', flexDirection: 'column' }}>
-                    <div className='eventCard' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', height:'100%' }}>
-                      <p className='has-text-weight-bold'>Event Creator: <span className='has-text-weight-normal'>{createdEvent.username}</span></p>
+                    <div className='eventCard' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', height: '100%' }}>
                       <figure className="image" style={{ width: '100%' }}>
                         <img src={createdEvent.image} />
                       </figure>

@@ -32,7 +32,7 @@ export default function LoginPage() {
       pauseOnHover: true,
     });
 
-    navigate(`/users/${user.id}`);
+    navigate(`/`);
   };
 
   if (currentUser) return <Navigate to="/" />;
