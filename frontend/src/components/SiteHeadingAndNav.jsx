@@ -71,6 +71,12 @@ export default function SiteHeadingAndNav() {
           <Link to='/events' className="navbar-item">
             Events
           </Link>
+          <Link to='/newsFeed' className="navbar-item">
+            News Feed
+          </Link>
+          <Link to='/events' className="navbar-item">
+            Events
+          </Link>
         </div>
       </div>
     </nav>

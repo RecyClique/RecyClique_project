@@ -32,7 +32,7 @@ const Dashboard = () => {
 
   const leaveEventButton = async (eventId) => {
     await leavePost(currentUser.id, eventId);
-    window.location.reload()
+    window.location.reload();
   }
 
   const deleteEventButton = async (eventId) =>{
@@ -160,7 +160,7 @@ const Dashboard = () => {
                       </div>
                     </div>
                   </>
-              )
+              ),
             }) : 'NAY'
           }
         </div>
