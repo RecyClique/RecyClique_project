@@ -1,11 +1,12 @@
 import { useContext, useState } from "react";
+import * as BulmaToast from "bulma-toast";
 import { createEvent } from "../adapters/events-adapter";
 import CurrentUserContext from "../contexts/current-user-context";
 
 const EventForm = ({ isOpen, onClose }) => {
   const { currentUser } = useContext(CurrentUserContext);
 
-  const [fileName, setFileName] = useState("File name...");
+  const [fileName, setFileName] = useState('File name...');
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -24,8 +25,27 @@ const EventForm = ({ isOpen, onClose }) => {
     e.target.reset();
     onClose();
 
-    const result = await createEvent(formData);
-    return result;
+    try {
+      const result = await createEvent(formData);
+
+      BulmaToast.toast({
+        message: `Successfully created event!`,
+        type: "is-success",
+        position: "top-center",
+        dismissible: true,
+        pauseOnHover: true,
+      });
+
+      return result;
+    } catch (error) {
+      BulmaToast.toast({
+        message: `Failed to create event. Please try again.`,
+        type: "is-danger",
+        position: "top-center",
+        dismissible: true,
+        pauseOnHover: true,
+      });
+    }
   };
 
   return (
@@ -106,14 +126,7 @@ const EventForm = ({ isOpen, onClose }) => {
               <label htmlFor="image">Event image:</label>
               <div className="file is-boxed has-name">
                 <label className="file-label">
-                  <input
-                    name="image"
-                    className="file-input"
-                    accept="image/*"
-                    id="image"
-                    type="file"
-                    onChange={handleFileChange}
-                  />
+                  <input className="file-input" type="file" name="image" onChange={handleFileChange} />
                   <span className="file-cta custom-file-input">
                     <span className="file-icon">
                       <i className="fas fa-upload"></i>

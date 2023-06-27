@@ -1,9 +1,10 @@
 import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
+import * as BulmaToast from "bulma-toast";
 import EventForm from "../components/EventForm";
 import { getAllEvents } from "../adapters/events-adapter";
 import CurrentUserContext from "../contexts/current-user-context";
-import { joinEvent, listAllJoined } from "../adapters/user-adapter";// import Modal from "../adapters/components";
+import { joinEvent, listAllJoined } from "../adapters/user-adapter";
 import "../index.css";
 
 const Events = () => {
@@ -19,14 +20,38 @@ const Events = () => {
     setIsModalOpen(false);
   };
   const navigate = useNavigate();
+
   const eventClick = async (event) => {
-    if (!currentUser) navigate('/login');
+    if (!currentUser) navigate("/login");
+
     const options = {
       userId: currentUser.id,
       eventId: event.id,
     };
-    await joinEvent(options);
-    setToggle(toggle + 1)
+
+    try {
+      await joinEvent(options);
+
+      BulmaToast.toast({
+        message: `Successfully joined the event!`,
+        type: "is-success",
+        position: "top-center",
+        dismissible: true,
+        pauseOnHover: true,
+      });
+
+      // Update the toggle state to re-render the components that depend on it
+      setToggle(toggle + 1);
+    } catch (error) {
+      BulmaToast.toast({
+        message: `Failed to join the event.`,
+        type: "is-danger",
+        position: "top-center",
+        dismissible: true,
+        pauseOnHover: true,
+      });
+      console.error("Error joining event:", error);
+    }
   };
 
   const [events, setEvents] = useState([]);
@@ -35,7 +60,9 @@ const Events = () => {
     getAllEvents().then(setEvents);
     console.log(events)
   }, []);
+
   const [joined, setJoined] = useState(new Set());
+
   useEffect(() => {
     const joinedChecker = async () => {
       const result = await listAllJoined(currentUser.id);
@@ -50,12 +77,10 @@ const Events = () => {
   }, [currentUser, toggle]);
 
   function convertToUSTime(militaryTime) {
-    // Split the military time into hours and minutes
     const timeComponents = militaryTime.split(':');
     let hours = parseInt(timeComponents[0]);
     let minutes = parseInt(timeComponents[1]);
 
-    // Determine the period (AM/PM)
     let period = "AM";
     if (hours >= 12) {
       period = "PM";
@@ -64,7 +89,6 @@ const Events = () => {
       }
     }
 
-    // Format the time in 12-hour AM/PM format
     const usTime = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")} ${period}`;
 
     return usTime;
@@ -75,33 +99,6 @@ const Events = () => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', options);
   }
-  // const joinedChecker = async () => {
-  //   const result = await listAllJoined(currentUser.id);
-  //   const options = result[0]
-  //   const eventsJoined = new Set();
-  //   for (let event of options) {
-  //     eventsJoined.add(event.id)
-  //     // console.log('TEST' + event.id)
-  //   }
-  //   // console.log(eventsJoined)
-  //   return eventsJoined;
-  // }
-  // let joined;
-  // const eventChecker = async () => {
-  //   joined = await joinedChecker();
-  // }
-  // eventChecker();
-
-  // function MyComponent() {
-  //   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  //   const openModal = () => {
-  //     setIsModalOpen(true);
-  //   };
-
-  //   const closeModal = () => {
-  //     setIsModalOpen(false);
-  //   };
 
   return (
     <>
@@ -138,8 +135,6 @@ const Events = () => {
                         <button className='button my-3' style={{ background: '#FFF', color: '#344d41', border: '2px solid #344d41', borderRadius: '0px', display: 'flex', alignSelf: 'flex-start' }} onClick={() => eventClick(event)}>Join Event</button>
                       </div>
                       <div>
-                        {/* <h1 className='is-size-5 has-text-weight-bold mt-4'>Description</h1> */}
-                        {/* <p>{event.description}</p> */}
                       </div>
                     </div>
                   </> : null);
@@ -165,21 +160,16 @@ const Events = () => {
                         <p>{event.description}</p>
                       </details>
                     </div>
-                    <div className='cardSec2'>
-                      <button className='button my-3' style={{ background: '#FFF', color: '#344d41', border: '2px solid #344d41', borderRadius: '0px', display: 'flex', alignSelf: 'flex-start' }} onClick={() => eventClick(event)}>Join Event</button>
-                    </div>
-                    <div>
-                      {/* <h1 className='is-size-5 has-text-weight-bold mt-4'>Description</h1> */}
-                      {/* <p>{event.description}</p> */}
-                    </div>
                   </div>
-                </>: <></>
+                </> : null
               );
             })
           }
         </div>
       </div>
-      <EventForm isOpen={isModalOpen} onClose={closeModal} />
+      {
+        isModalOpen && <EventForm closeModal={closeModal} />
+      }
     </>
   );
 };

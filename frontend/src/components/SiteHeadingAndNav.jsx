@@ -1,5 +1,6 @@
 import { useNavigate, Link } from "react-router-dom";
 import { useContext, useState } from "react";
+import * as BulmaToast from "bulma-toast";
 import CurrentUserContext from "../contexts/current-user-context";
 import { getUser } from "../adapters/user-adapter";
 import { logUserOut } from "../adapters/auth-adapter";
@@ -8,13 +9,21 @@ export default function SiteHeadingAndNav() {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const [isBurgerToggled, setIsBurgerToggled] = useState(false);
   const burgerToggle = () => {
-    setIsBurgerToggled(!isBurgerToggled)
-  }
-  const navigate = useNavigate()
+    setIsBurgerToggled(!isBurgerToggled);
+  };
+  const navigate = useNavigate();
   const handleLogout = async () => {
-    logUserOut();
-    setCurrentUser(null);
-    navigate('/');
+    const result = await logUserOut();
+    if (result) {
+      setCurrentUser(null);
+      BulmaToast.toast({
+        message: "Logged out!",
+        type: "is-success",
+        position: "top-center",
+        dismissible: true,
+        pauseOnHover: true,
+      });
+    }
   };
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
@@ -39,8 +48,8 @@ export default function SiteHeadingAndNav() {
           <Link to='/' className="navbar-item">
             Home
           </Link>
-          {!currentUser ?
-            <>
+          {!currentUser
+            ? <>
               <Link to='/login' className="navbar-item">
                 Log in
               </Link>
@@ -65,7 +74,7 @@ export default function SiteHeadingAndNav() {
         </div>
       </div>
     </nav>
-  )
+  );
 
   // return <header>
   //   <a id='logo' href='/'>React/Express Auth</a>
