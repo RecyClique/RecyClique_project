@@ -105,7 +105,7 @@ const Events = () => {
 
   return (
     <>
-      <div style={{ background: '#344d41' }} >
+      <div style={{ background: '#344d41', minHeight: '75vh' }} >
         <h1 className='title has-text-centered' style={{ color: 'white', padding: '20px' }}>Events</h1>
         <div className='is-flex is-justify-content-center mb-5'>
           <button className='button' onClick={openModal} style={{ background: '#344d41', color: 'white', border: '2px solid #fff', borderRadius: '0px' }}>Create Event</button>
