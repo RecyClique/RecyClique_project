@@ -13,7 +13,16 @@ const Article = ({ article }) => {
             <h2>{article.headline.main}</h2>
             <p>{article.abstract}</p>
           </div>
-
+          <div>
+          {article.multimedia.length > 0 && (
+            <img
+              id="newsImage"
+              src={`https://www.nytimes.com/${article.multimedia[0].url}`}
+              alt="Article Image"
+              className="article-image"
+            />
+          )}
+          </div>
         </div>
       </div>
     </div>
