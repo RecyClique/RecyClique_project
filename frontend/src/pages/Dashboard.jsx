@@ -8,6 +8,8 @@ const Dashboard = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const [joined, setJoined] = useState(null);
   const [created, setCreated] = useState(null);
+  const [toggle, setToggle] = useState(1)
+  const [currentTab, setCurrentTab] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,17 +24,10 @@ const Dashboard = () => {
     };
 
     if (currentUser) {
-      // Ensure currentUser is defined before running fetchData.
       fetchData();
     }
-  }, [currentUser]);
+  }, [currentUser, toggle]);
 
-  useEffect(() => {
-    console.log(created ? created[0] : null);
-    console.log(joined ? joined[0] : null);
-  }, [created, joined]);
-
-  const [currentTab, setCurrentTab] = useState(0);
   const changeTab = (index) => {
     setCurrentTab(index);
   };
@@ -59,6 +54,7 @@ const Dashboard = () => {
       });
       console.log("Successfully left event:", response);
     }
+    setToggle(toggle + 1);
   };
 
   const deleteEventButton = async (eventId) => {
@@ -82,93 +78,112 @@ const Dashboard = () => {
         pauseOnHover: true,
       });
       console.log("Successfully deleted event:", response);
-
-      // We fetch the data again to update the events lists.
-      fetchData();
     }
+    setToggle(toggle + 1);
   };
 
+  function convertToUSTime(militaryTime) {
+    const timeComponents = militaryTime.split(':');
+    let hours = parseInt(timeComponents[0]);
+    let minutes = parseInt(timeComponents[1]);
+    let period = "AM";
+    if (hours >= 12) {
+      period = "PM";
+      if (hours > 12) {
+        hours -= 12;
+      }
+    }
+    const usTime = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")} ${period}`;
+    return usTime;
+  }
+
+  function formatDate(dateString) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', options);
+  }
+
   return (
-    <>
-      <div>
-        <h1 className="title has-text-centered">Dashboard</h1>
-      </div>
-
-      <div className="tabs is-centered">
-        <ul>
-          <li className={currentTab === 0 ? "is-active" : ""} onClick={() => changeTab(0)}><a>Joined Events</a></li>
-          <li className={currentTab === 2 ? "is-active" : ""} onClick={() => changeTab(2)}><a>Created Events</a></li>
-        </ul>
-      </div>
-      <div className="tab-content">
-        <div className={currentTab !== 0 ? "is-hidden" : ""}>
-
-        {
-            joined ? joined[0].map((joinedEvent) => {
-              console.log(`result2${joinedEvent}`);
-              return (
-                <>
-                  <div className='box eventBox' id={`eventId: ${joinedEvent.id}`}>
-                      <div>
-                        <h1 className='title'>{joinedEvent.title}</h1>
-                        <p>{joinedEvent.borough}</p>
-                        <p>{joinedEvent.location}</p>
-                        <p>{joinedEvent.start_date === joinedEvent.end_date ? joinedEvent.start_date.substring(0, 10) : `${joinedEvent.start_date.substring(0, 10)} - ${joinedEvent.end_date.substring(0, 10)}`}</p>
-                        <p>{`${joinedEvent.start_time} - ${joinedEvent.end_time}`}</p>
-                      </div>
-                      <div className='cardSec2'>
-                        <button className='button is-danger' onClick={() => leaveEventButton(joinedEvent.id)}>Leave Event</button>
-                      </div>
-                      <div>
-                        <h1 className='is-size-5 has-text-weight-bold mt-4'>Description</h1>
-                        <p>{joinedEvent.description}</p>
-                      </div>
-                    </div>
-                </>
-              );
-            }) : 'NAY'
-          }
+    <div style={{ background: 'var(--background)', height: '100vh' }}>
+      <h1 style={{ textAlign: 'center', padding: '10px', color: 'var(--primary)' }}>Dashboard</h1>
+      <div style={{ margin: '0 auto', width: '50%' }}>
+        <div className="tabs is-centered">
+          <ul>
+            <li className={currentTab === 0 ? 'is-active' : ''} onClick={() => changeTab(0)}>
+              <a>Joined Events</a>
+            </li>
+            <li className={currentTab === 1 ? 'is-active' : ''} onClick={() => changeTab(1)}>
+              <a>Created Events</a>
+            </li>
+          </ul>
         </div>
-        {/* <div className={currentTab !== 1 ? "is-hidden" : ""}>
-          <p>test2</p>
-        </div> */}
-        <div className={currentTab !== 2 ? "is-hidden" : ""}>
-          {
-            created ? created[0].map((createdEvent) => {
-              const {
-                id,
-                borough,
-                location,
-                start_date,
-                start_time,
-                end_date,
-                end_time,
-                description,
-                title,
-              } = createdEvent;
-              return (
-                <div className='box eventBox' key={`eventId: ${id}`}>
-                      <div>
-                        <h1 className='title'>{title}</h1>
-                        <p>{borough}</p>
-                        <p>{location}</p>
-                        <p>{start_date === end_date ? start_date.substring(0, 10) : `${start_date.substring(0, 10)} - ${end_date.substring(0, 10)}`}</p>
-                        <p>{`${start_time} - ${end_time}`}</p>
-                      </div>
-                      <div className='cardSec2'>
-                        <button className='button is-primary' onClick={() => deleteEventButton(id)}>Delete Event</button>
-                      </div>
-                      <div>
-                        <h1 className='is-size-5 has-text-weight-bold mt-4'>Description</h1>
-                        <p>{description}</p>
-                      </div>
+        {currentTab === 0 ? (
+          <div className="box">
+            {joined?.length === 0 && (
+              <h1 style={{ textAlign: 'center', color: 'var(--primary)' }}>You have not joined any events</h1>
+            )}
+            {joined?.map((event, index) => (
+              <div key={index} className="card" style={{ marginBottom: '10px' }}>
+                <div className="card-content">
+                  <div className="media">
+                    <div className="media-left">
+                      <figure className="image is-48x48">
+                        <img src={event.imageUrl} alt="Placeholder image" />
+                      </figure>
                     </div>
-              );
-            }) : 'NAY'
-          }
-        </div>
+                    <div className="media-content">
+                      <p className="title is-4">{event.title}</p>
+                      <p className="subtitle is-6">{formatDate(event.date)}</p>
+                      <p className="subtitle is-6">{convertToUSTime(event.time)}</p>
+                    </div>
+                  </div>
+
+                  <div className="content">
+                    {event.description}
+                    <br />
+                  </div>
+                  <button className="button is-danger" onClick={() => leaveEventButton(event.id)}>
+                    Leave Event
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="box">
+            {created?.length === 0 && (
+              <h1 style={{ textAlign: 'center', color: 'var(--primary)' }}>You have not created any events</h1>
+            )}
+            {created?.map((event, index) => (
+              <div key={index} className="card" style={{ marginBottom: '10px' }}>
+                <div className="card-content">
+                  <div className="media">
+                    <div className="media-left">
+                      <figure className="image is-48x48">
+                        <img src={event.imageUrl} alt="Placeholder image" />
+                      </figure>
+                    </div>
+                    <div className="media-content">
+                      <p className="title is-4">{event.title}</p>
+                      <p className="subtitle is-6">{formatDate(event.date)}</p>
+                      <p className="subtitle is-6">{convertToUSTime(event.time)}</p>
+                    </div>
+                  </div>
+
+                  <div className="content">
+                    {event.description}
+                    <br />
+                  </div>
+                  <button className="button is-danger" onClick={() => deleteEventButton(event.id)}>
+                    Delete Event
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
-    </>
+    </div>
   );
 };
 
