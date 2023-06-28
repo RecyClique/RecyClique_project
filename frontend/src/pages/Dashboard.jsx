@@ -2,11 +2,19 @@ import { listAllCreated, listAllJoined, leavePost } from "../adapters/user-adapt
 import { deleteEvent } from "../adapters/events-adapter";
 import CurrentUserContext from "../contexts/current-user-context";
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 const Dashboard = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const [joined, setJoined] = useState(null);
   const [created, setCreated] = useState(null);
-  const [toggle, setToggle] = useState(1)
+  const [toggle, setToggle] = useState(1);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!currentUser) {
+      navigate('/');
+    }
+  }, [currentUser, navigate]);
 
   useEffect(() => {
     const fetchData = async () => {

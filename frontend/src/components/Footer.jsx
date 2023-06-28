@@ -1,19 +1,6 @@
-import { Link } from 'react-router-dom'
-import emailjs from 'emailjs-com';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
-
-    const sendEmail = (event) => {
-        event.preventDefault();
-
-        emailjs.sendForm('service_mtudin1', 'template_chdvvtu', event.target, '')
-            .then((result) => {
-                console.log(result.text);
-            }, (error) => {
-                console.log(error.text);
-            });
-        event.target.reset();
-    }
 
     return (
         <div className='footer' id='footer'>
@@ -30,7 +17,7 @@ const Footer = () => {
                 </Link>
             </div>
             <div className='footerSec'>
-                <form id='newsLetterForm' onSubmit={sendEmail}>
+                <form id='newsLetterForm'>
                     <div className='field' id='newsLetterDiv'>
                         <label htmlFor='newsLetter' className='has-text-centered mb-3'>UPDATES</label>
                         <input type='email' className='input' id='newsLetter' placeholder='EMAIL'></input>
@@ -52,4 +39,4 @@ const Footer = () => {
     )
 }
 
-export default Footer
+export default Footer;
