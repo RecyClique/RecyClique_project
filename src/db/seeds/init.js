@@ -46,6 +46,9 @@ exports.seed = async (knex) => {
 
   // Events
   await Event.deleteAll();
+  // Events
+  await Event.deleteAll();
+
   await Event.create(
     1,
     "Cleanup",
@@ -57,7 +60,7 @@ exports.seed = async (knex) => {
     "Central Park",
     "Manhattan",
     "Join us for a cleanup event at Central Park. Bring your friends!",
-    "https://example.com/images/cleanup.jpg"
+    "https://upload.wikimedia.org/wikipedia/commons/1/13/Central_Park_-_The_Pond_%2848377220157%29.jpg"
   );
 
   await Event.create(
@@ -71,7 +74,7 @@ exports.seed = async (knex) => {
     "Brooklyn Library",
     "Brooklyn",
     "Join us for a book exchange event at Brooklyn Library. Bring books you'd like to swap!",
-    "https://example.com/images/book_exchange.jpg"
+    "https://static.wixstatic.com/media/090274_561e59af171f4fb9b54b0992b442e70b~mv2.jpg/v1/fit/w_320%2Ch_765%2Cal_c%2Cq_80,enc_auto/file.jpg"
   );
 
   await Event.create(
@@ -85,7 +88,7 @@ exports.seed = async (knex) => {
     "Coney Island Beach",
     "Brooklyn",
     "Join us for a cleanup event at Coney Island Beach. Let's save our oceans!",
-    "https://example.com/images/beach_cleanup.jpg"
+    "https://live.staticflickr.com/3188/2743676819_820fab6c80_b.jpg"
   );
 
   await Event.create(
@@ -99,7 +102,7 @@ exports.seed = async (knex) => {
     "Times Square",
     "Manhattan",
     "Join us for a clothes exchange event at Times Square. Bring clothes you'd like to swap!",
-    "https://example.com/images/clothes_exchange.jpg"
+    "https://cdn.shopify.com/s/files/1/0648/0828/8508/products/image_581d1fe7-adcf-45ad-b691-8f33dbc2615f.jpg?v=1687365317&width=1440"
   );
 
   await Event.create(
@@ -113,7 +116,7 @@ exports.seed = async (knex) => {
     "Broadway",
     "Manhattan",
     "Join us for a cleanup event at Broadway. Let's keep our city clean!",
-    "https://example.com/images/street_cleanup.jpg"
+    "https://nypost.com/wp-content/uploads/sites/2/2020/09/one-block-uws-4.jpg?quality=75&strip=all"
   );
 
   // User Events
