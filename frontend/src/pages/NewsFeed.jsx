@@ -5,7 +5,7 @@ const Article = ({ article }) => {
     window.open(article.web_url, '_blank');
   };
   return (
-    <div className="card mb-4">
+    <div className="card mb-5" style={{width:'85%', margin: '0 auto'}}>
       <div className="content" id="newsCard">
         
         <div onClick={handleClick} className="article-container">
@@ -53,7 +53,7 @@ const ArticleList = () => {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', overflow: 'auto', marginTop: '30px', marginBottom: '20px'}}>
-      <h1 style={{ margin: '25px' }} className='title'>NewsFeed</h1>
+      <h1 style={{ margin: '25px 25px 35px 25px' }} className='title'>NewsFeed</h1>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         {articles.map(article => (
           <Article key={article._id} article={article} />

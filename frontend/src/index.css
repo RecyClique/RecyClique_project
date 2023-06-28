@@ -351,6 +351,24 @@ form {
   grid-template-columns: repeat(5, 1fr);
 }
 
+.eventCardHover{
+  transition-duration: .3s;
+}
+
+.eventCardHover:hover{
+  transform: scale(1.03);
+}
+
+.tab-item a {
+  color: white; /* Set the default text color for inactive tabs */
+}
+.tab-item a:hover{
+  color:white;
+}
+
+.tab-item.is-active a {
+  color: rgb(158, 217, 238) !important; /* Set the text color for active tab when clicked */
+}
 
 @media (max-width: 1580px) {
   .grid-container {

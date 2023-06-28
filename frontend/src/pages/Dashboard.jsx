@@ -71,18 +71,18 @@ const Dashboard = () => {
   }
 
   return (
-    <div style={{ background: 'white' }}>
+    <div style={{ background: '#344d41' }}>
       <div>
-        <h1 className="title has-text-centered">Welcome {currentUser.first_name} {currentUser.last_name}!</h1>
+        <h1 className="title has-text-centered has-text-white py-4">Welcome, {currentUser.first_name} {currentUser.last_name}!</h1>
       </div>
 
 
 
       <div className="tabs is-centered">
         <ul>
-          <li className={currentTab === 0 ? "is-active" : ""} onClick={() => changeTab(0)}><a>Joined Events</a></li>
+          <li className={currentTab === 0 ? "is-active tab-item" : "tab-item"} onClick={() => changeTab(0)}><a>Joined Events</a></li>
           {/* <li className={currentTab === 1 ? "is-active" : ""} onClick={() => changeTab(1)}><a>Past Events</a></li> */}
-          <li className={currentTab === 2 ? "is-active" : ""} onClick={() => changeTab(2)}><a>Created Events</a></li>
+          <li className={currentTab === 2 ? "is-active tab-item" : "tab-item"} onClick={() => changeTab(2)}><a>Created Events</a></li>
         </ul>
       </div>
       <div className="tab-content">
@@ -93,12 +93,13 @@ const Dashboard = () => {
               console.log('result2' + joinedEvent)
               return (
                 <>
-                  <div className='box eventBox my-5' id={`eventId: ${joinedEvent.id}`} style={{ borderRadius: '0px', display: 'flex', flexDirection: 'column' }}>
+                  <div className='box eventBox my-5 eventCardHover' id={`eventId: ${joinedEvent.id}`} style={{ borderRadius: '0px', display: 'flex', flexDirection: 'column' }}>
                     <div className='eventCard' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', height: '100%' }}>
                       <figure className="image" style={{ width: '100%' }}>
                         <img src={joinedEvent.image} />
                       </figure>
                       <h1 className='title' style={{ paddingTop: '10px', fontSize: '20px' }}>{joinedEvent.title}</h1>
+                      <p className='has-text-weight-bold'>{joinedEvent.type}</p>
                       <div>
                         <p>{`${convertToUSTime(joinedEvent.start_time)} - ${convertToUSTime(joinedEvent.end_time)}`}</p>
                         <p>{joinedEvent.start_date === joinedEvent.end_date ? formatDate(joinedEvent.start_date.substring(0, 10)) : `${formatDate(joinedEvent.start_date.substring(0, 10))} - ${formatDate(joinedEvent.end_date.substring(0, 10))}`}</p>
@@ -144,7 +145,7 @@ const Dashboard = () => {
         {/* <div className={currentTab !== 1 ? "is-hidden" : ""}>
           <p>test2</p>
         </div> */}
-        <div className={currentTab !== 2 ? "is-hidden" : ""} style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)' }}>
+        <div className={currentTab !== 2 ? "is-hidden grid-container" : "grid-container"}>
           {
             created && toggle ? created[0].map(createdEvent => {
               console.log('result1' + createdEvent)
@@ -166,12 +167,13 @@ const Dashboard = () => {
                 //       </div>
                 //     </div>
                 <>
-                  <div className='box eventBox my-5' id={`eventId: ${createdEvent.id}`} style={{ borderRadius: '0px', display: 'flex', flexDirection: 'column' }}>
+                  <div className='box eventBox my-5 eventCardHover' id={`eventId: ${createdEvent.id}`} style={{ borderRadius: '0px', display: 'flex', flexDirection: 'column' }}>
                     <div className='eventCard' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', height: '100%' }}>
                       <figure className="image" style={{ width: '100%' }}>
                         <img src={createdEvent.image} />
                       </figure>
                       <h1 className='title' style={{ paddingTop: '10px', fontSize: '20px' }}>{createdEvent.title}</h1>
+                      <p className='has-text-weight-bold'>{createdEvent.type}</p>
                       <div>
                         <p>{`${convertToUSTime(createdEvent.start_time)} - ${convertToUSTime(createdEvent.end_time)}`}</p>
                         <p>{createdEvent.start_date === createdEvent.end_date ? formatDate(createdEvent.start_date.substring(0, 10)) : `${formatDate(createdEvent.start_date.substring(0, 10))} - ${formatDate(createdEvent.end_date.substring(0, 10))}`}</p>

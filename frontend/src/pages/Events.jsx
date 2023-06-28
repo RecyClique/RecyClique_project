@@ -106,7 +106,7 @@ const Events = () => {
   return (
     <>
       <div style={{ background: '#344d41', minHeight: '75vh' }} >
-        <h1 className='title has-text-centered' style={{ color: 'white', padding: '20px' }}>Events</h1>
+        <h1 className='title has-text-centered' style={{ color: 'white', padding: '40px 20px 20px 20px' }}>Events</h1>
         <div className='is-flex is-justify-content-center mb-5'>
           <button className='button' onClick={openModal} style={{ background: '#344d41', color: 'white', border: '2px solid #fff', borderRadius: '0px' }}>Create Event</button>
         </div>
@@ -116,13 +116,14 @@ const Events = () => {
               if (currentUser) {
                 return (
                   joined.has(event.id) === false && Number(event.organizer_id) !== Number(currentUser.id) && toggle ? <>
-                    <div className='box eventBox my-5' id={`eventId: ${event.id}`} style={{ borderRadius: '0px', display: 'flex', flexDirection: 'column' }}>
+                    <div className='box eventBox my-5 eventCardHover' id={`eventId: ${event.id}`} style={{ borderRadius: '0px', display: 'flex', flexDirection: 'column' }}>
                       <div className='eventCard' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', height: '100%' }}>
                       <p className='has-text-weight-bold is-size-5'>{event.username}</p>
                         <figure className="image" style={{ width: '100%' }}>
                           <img src={event.image} />
                         </figure>
                         <h1 className='title' style={{ paddingTop: '10px', fontSize: '20px' }}>{event.title}</h1>
+                        <p className='has-text-weight-bold'>{event.type}</p>
                         <div>
                           <p>{`${convertToUSTime(event.start_time)} - ${convertToUSTime(event.end_time)}`}</p>
                           <p>{event.start_date === event.end_date ? formatDate(event.start_date.substring(0, 10)) : `${formatDate(event.start_date.substring(0, 10))} - ${formatDate(event.end_date.substring(0, 10))}`}</p>
@@ -147,7 +148,7 @@ const Events = () => {
 
               return (
                 toggle ? <>
-                  <div className='box eventBox my-5' id={`eventId: ${event.id}`} style={{ borderRadius: '0px', display: 'flex', flexDirection: 'column', width: '300px' }}>
+                  <div className='box eventBox my-5 eventCardHover' id={`eventId: ${event.id}`} style={{ borderRadius: '0px', display: 'flex', flexDirection: 'column', width: '300px' }}>
                     <div className='eventCard' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', height: '100%' }}>
                     <p className='has-text-weight-bold is-size-5'>{event.username}</p>
                       <figure className="image" style={{ width: '100%' }}>
@@ -155,6 +156,7 @@ const Events = () => {
                       </figure>
 
                       <h1 className='title' style={{ paddingTop: '10px', fontSize: '20px' }}>{event.title}</h1>
+                      <p className='has-text-weight-bold'>{event.type}</p>
                       <div>
                         <p>{`${convertToUSTime(event.start_time)} - ${convertToUSTime(event.end_time)}`}</p>
                         <p>{event.start_date === event.end_date ? formatDate(event.start_date.substring(0, 10)) : `${formatDate(event.start_date.substring(0, 10))} - ${formatDate(event.end_date.substring(0, 10))}`}</p>
