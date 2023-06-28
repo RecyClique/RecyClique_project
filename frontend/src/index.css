@@ -224,6 +224,12 @@ form {
   object-fit: cover;
   overflow: hidden;
   margin: 0 auto;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.aboutImg:hover {
+  cursor: pointer;
+  transform: scale(1.08);
 }
 
 #aboutColumns {
@@ -328,7 +334,6 @@ form {
   justify-content: center;
 }
 
-
 .article-content p {
   font-size: 18px;
 }
@@ -338,8 +343,9 @@ form {
   height: 150px;
   margin-right: 30px;
   margin-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 20px; 
 }
+
 
 .custom-file-input {
   background-color: #344d41;
