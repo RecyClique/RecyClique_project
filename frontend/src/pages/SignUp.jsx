@@ -22,7 +22,7 @@ export default function SignUpPage() {
       () => /\d/.test(password) || 'Password should have at least one digit.',
       () => /[A-Z]/.test(password) || 'Password should have at least one uppercase letter.',
       () => /[a-z]/.test(password) || 'Password should have at least one lowercase letter.',
-      () => /[!@#$%^&*()-+=]/.test(password) || 'Password should have at least one of the symbols !@#$%^&*()-+=',
+      () => /[!@#$%^&*()-+=.]/.test(password) || 'Password should have at least one of the symbols !@#$%^&*()-+=.',
     ];
     for (let i = 0; i < checks.length; i++) {
       const result = checks[i]();

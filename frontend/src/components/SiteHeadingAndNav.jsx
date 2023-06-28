@@ -4,6 +4,23 @@ import CurrentUserContext from "../contexts/current-user-context";
 import { getUser } from "../adapters/user-adapter";
 import { logUserOut } from "../adapters/auth-adapter";
 
+/* 
+
+home
+about us
+events
+newsfeed
+sign up
+login
+
+logged in:
+
+about us
+events
+newsfeed
+logout
+
+*/
 export default function SiteHeadingAndNav() {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const [isBurgerToggled, setIsBurgerToggled] = useState(false);
@@ -23,7 +40,7 @@ export default function SiteHeadingAndNav() {
           <Link to='/'>
 
             <a className="navbar-item my-4">
-              <img src="./src/assets/newLogo.png" id='logo' alt="Recy-clique" ></img>
+              <img src="https://res.cloudinary.com/dslo6dp6o/image/upload/v1687987146/qlcksgqkbjmbnqzlej2t.png" id='logo' alt="Recy-clique" ></img>
             </a>
 
           </Link>
@@ -39,35 +56,33 @@ export default function SiteHeadingAndNav() {
           <Link to='/' className="navbar-item">
             Home
           </Link>
+          {currentUser ?
+            <>
+              <Link to='/dashboard' className="navbar-item">
+                Dashboard
+              </Link>
+            </> : <></>
+          }
+          <Link to='/about' className="navbar-item">
+            About Us
+          </Link>
+          <Link to='/events' className="navbar-item">
+            Events
+          </Link>
+          <Link to='/newsFeed' className="navbar-item">
+            News Feed
+          </Link>
           {!currentUser ?
             <>
               <Link to='/login' className="navbar-item">
-                Log in
+                Login
               </Link>
               <Link to='sign-up' className="navbar-item">
                 Sign Up
               </Link>
-              <Link to='/events' className="navbar-item">
-            Events
-          </Link>
-          <Link to='/newsFeed' className="navbar-item">
-            News Feed
-          </Link>
             </> : <>
               <a className="navbar-item" onClick={handleLogout}>Log Out</a>
-              <Link to='/dashboard' className="navbar-item">
-                Dashboard
-              </Link>
-              <Link to='/events' className="navbar-item">
-            Events
-          </Link>
-          <Link to='/newsFeed' className="navbar-item">
-            News Feed
-          </Link>
             </>}
-          <Link to='/about' className="navbar-item">
-            About Us
-          </Link>
         </div>
       </div>
     </nav>

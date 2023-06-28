@@ -1,5 +1,6 @@
 const multer = require("multer");
 const express = require("express");
+const { parser } = require("./utils/cloudinary");
 const userController = require("./controllers/user");
 const eventController = require("./controllers/event");
 const userEventsController = require("./controllers/user_events");
@@ -26,7 +27,7 @@ Router.get("/logged-in-secret", checkAuthentication, (req, res) => {
 Router.get("/events", eventController.list);
 Router.post(
   "/events",
-  multer({ dest: "uploads/" }).single("image"),
+  parser.single("image"),
   eventController.create,
 );
 Router.patch("/events/:id", eventController.update);

@@ -2,11 +2,19 @@ import { listAllCreated, listAllJoined, leavePost } from "../adapters/user-adapt
 import { deleteEvent } from "../adapters/events-adapter";
 import CurrentUserContext from "../contexts/current-user-context";
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 const Dashboard = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const [joined, setJoined] = useState(null);
   const [created, setCreated] = useState(null);
-  const [toggle, setToggle] = useState(1)
+  const [toggle, setToggle] = useState(1);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!currentUser) {
+      navigate('/');
+    }
+  }, [currentUser, navigate]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,8 +35,6 @@ const Dashboard = () => {
   }, [currentUser, toggle]);
 
   useEffect(() => {
-    console.log(created ? created[0] : null);
-    console.log(joined ? joined[0] : null);
   }, [created, joined]);
 
   const [currentTab, setCurrentTab] = useState(0);
@@ -71,9 +77,11 @@ const Dashboard = () => {
   }
 
   return (
-    <div style={{ background: '#344d41' }}>
+    <div style={{ background: '#344d41', minHeight: '75vh' }}>
       <div>
-        <h1 className="title has-text-centered has-text-white py-4">Welcome, {currentUser.first_name} {currentUser.last_name}!</h1>
+        {currentUser &&
+          <h1 className="title has-text-centered has-text-white py-4">Welcome, {currentUser.first_name} {currentUser.last_name}!</h1>
+        }
       </div>
 
 
@@ -81,7 +89,6 @@ const Dashboard = () => {
       <div className="tabs is-centered">
         <ul>
           <li className={currentTab === 0 ? "is-active tab-item" : "tab-item"} onClick={() => changeTab(0)}><a>Joined Events</a></li>
-          {/* <li className={currentTab === 1 ? "is-active" : ""} onClick={() => changeTab(1)}><a>Past Events</a></li> */}
           <li className={currentTab === 2 ? "is-active tab-item" : "tab-item"} onClick={() => changeTab(2)}><a>Created Events</a></li>
         </ul>
       </div>
@@ -90,112 +97,70 @@ const Dashboard = () => {
 
           {
             joined && toggle ? joined[0].map(joinedEvent => {
-              console.log('result2' + joinedEvent)
+              const { id, username, image, title, type, start_time, end_time, start_date, end_date, location, borough, description } = joinedEvent;
               return (
                 <>
-                  <div className='box eventBox my-5 eventCardHover' id={`eventId: ${joinedEvent.id}`} style={{ borderRadius: '0px', display: 'flex', flexDirection: 'column' }}>
-                    <div className='eventCard' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', height: '100%' }}>
-                      <figure className="image" style={{ width: '100%' }}>
-                        <img src={joinedEvent.image} />
+                  <div className='box eventBox my-5 eventCardHover' key={`eventId: ${id}`} style={{ borderRadius: '0px', display: 'flex', flexDirection: 'column', width: '300px' }}>
+                    <div className='eventCard' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', height: '100%' }}>
+                      <p className='has-text-weight-bold is-size-6 pb-4'>{username}</p>
+                      <figure className="image" style={{ width: '100%', height: '400px', overflow: 'hidden' }}>
+                        <img src={image} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                       </figure>
-                      <h1 className='title' style={{ paddingTop: '10px', fontSize: '20px' }}>{joinedEvent.title}</h1>
-                      <p className='has-text-weight-bold'>{joinedEvent.type}</p>
+                      <h1 className='title' style={{ paddingTop: '10px', fontSize: '20px' }}>{title}</h1>
+                      <p className='has-text-weight-bold'>{type}</p>
                       <div>
-                        <p>{`${convertToUSTime(joinedEvent.start_time)} - ${convertToUSTime(joinedEvent.end_time)}`}</p>
-                        <p>{joinedEvent.start_date === joinedEvent.end_date ? formatDate(joinedEvent.start_date.substring(0, 10)) : `${formatDate(joinedEvent.start_date.substring(0, 10))} - ${formatDate(joinedEvent.end_date.substring(0, 10))}`}</p>
+                        <p>{`${convertToUSTime(start_time)} - ${convertToUSTime(end_time)}`}</p>
+                        <p>{start_date === end_date ? formatDate(start_date.substring(0, 10)) : `${formatDate(start_date.substring(0, 10))} - ${formatDate(end_date.substring(0, 10))}`}</p>
                       </div>
-                      <p style={{ color: '#9f9f9f' }}>{joinedEvent.location}</p>
-                      <p style={{ color: '#9f9f9f' }}>{joinedEvent.borough}, NY</p>
+                      <p style={{ color: '#9f9f9f' }}>{location}</p>
+                      <p style={{ color: '#9f9f9f' }}>{borough}, NY</p>
                       <details style={{}}>
                         <summary style={{ cursor: 'pointer' }}>Description</summary>
-                        <p>{joinedEvent.description}</p>
+                        <p>{description}</p>
                       </details>
                     </div>
                     <div className='cardSec2'>
-                      <button className='button my-3' style={{ background: '#FFF', color: '#344d41', border: '2px solid #344d41', borderRadius: '0px', display: 'flex', alignSelf: 'flex-start' }} onClick={() => leaveEventButton(joinedEvent.id)}>Leave Event</button>
+                      <button className='button my-3' style={{ background: '#FFF', color: '#344d41', border: '2px solid #344d41', borderRadius: '0px', display: 'flex', alignSelf: 'flex-start' }} onClick={() => leaveEventButton(id)}>Leave Event</button>
                     </div>
                     <div>
-                      {/* <h1 className='is-size-5 has-text-weight-bold mt-4'>Description</h1> */}
-                      {/* <p>{event.description}</p> */}
                     </div>
                   </div>
                 </>
-                // <>
-                //   <div className='box eventBox' id={'eventId: ' + joinedEvent.id}>
-                //       <div>
-                //         <h1 className='title'>{joinedEvent.title}</h1>
-                //         <p>{joinedEvent.borough}</p>
-                //         <p>{joinedEvent.location}</p>
-                //         <p>{joinedEvent.start_date === joinedEvent.end_date ? joinedEvent.start_date.substring(0, 10) : joinedEvent.start_date.substring(0, 10) + ' - ' + joinedEvent.end_date.substring(0, 10)}</p>
-                //         <p>{joinedEvent.start_time + ' - ' + joinedEvent.end_time}</p>
-                //       </div>
-                //       <div className='cardSec2'>
-                //         <button className='button is-danger' onClick={() => leaveEventButton(joinedEvent.id)}>Leave Event</button>
-                //       </div>
-                //       <div>
-                //         <h1 className='is-size-5 has-text-weight-bold mt-4'>Description</h1>
-                //         <p>{joinedEvent.description}</p>
-                //       </div>
-                //     </div>
-                // </>
               )
             }) : 'NAY'
           }
         </div>
-        {/* <div className={currentTab !== 1 ? "is-hidden" : ""}>
-          <p>test2</p>
-        </div> */}
         <div className={currentTab !== 2 ? "is-hidden grid-container" : "grid-container"}>
           {
             created && toggle ? created[0].map(createdEvent => {
-              console.log('result1' + createdEvent)
+              const { id, username, image, title, type, start_time, end_time, start_date, end_date, location, borough, description } = createdEvent;
               return (
-                // <div className='box eventBox' id={'eventId: ' + createdEvent.id}>
-                //       <div>
-                //         <h1 className='title'>{createdEvent.title}</h1>
-                //         <p>{createdEvent.borough}</p>
-                //         <p>{createdEvent.location}</p>
-                //         <p>{createdEvent.start_date === createdEvent.end_date ? createdEvent.start_date.substring(0, 10) : createdEvent.start_date.substring(0, 10) + ' - ' + createdEvent.end_date.substring(0, 10)}</p>
-                //         <p>{createdEvent.start_time + ' - ' + createdEvent.end_time}</p>
-                //       </div>
-                //       <div className='cardSec2'>
-                //         <button className='button is-primary' onClick={() => deleteEventButton(createdEvent.id)}>Delete Event</button>
-                //       </div>
-                //       <div>
-                //         <h1 className='is-size-5 has-text-weight-bold mt-4'>Description</h1>
-                //         <p>{createdEvent.description}</p>
-                //       </div>
-                //     </div>
                 <>
-                  <div className='box eventBox my-5 eventCardHover' id={`eventId: ${createdEvent.id}`} style={{ borderRadius: '0px', display: 'flex', flexDirection: 'column' }}>
+                  <div className='box eventBox my-5 eventCardHover' id={`eventId: ${id}`} style={{ borderRadius: '0px', display: 'flex', flexDirection: 'column' }}>
                     <div className='eventCard' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', height: '100%' }}>
-                      <figure className="image" style={{ width: '100%' }}>
-                        <img src={createdEvent.image} />
+                      <figure className="image" style={{ width: '100%', height: '400px', overflow: 'hidden' }}>
+                        <img src={image} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                       </figure>
-                      <h1 className='title' style={{ paddingTop: '10px', fontSize: '20px' }}>{createdEvent.title}</h1>
-                      <p className='has-text-weight-bold'>{createdEvent.type}</p>
+                      <h1 className='title' style={{ paddingTop: '10px', fontSize: '20px' }}>{title}</h1>
+                      <p className='has-text-weight-bold'>{type}</p>
                       <div>
-                        <p>{`${convertToUSTime(createdEvent.start_time)} - ${convertToUSTime(createdEvent.end_time)}`}</p>
-                        <p>{createdEvent.start_date === createdEvent.end_date ? formatDate(createdEvent.start_date.substring(0, 10)) : `${formatDate(createdEvent.start_date.substring(0, 10))} - ${formatDate(createdEvent.end_date.substring(0, 10))}`}</p>
+                        <p>{`${convertToUSTime(start_time)} - ${convertToUSTime(end_time)}`}</p>
+                        <p>{start_date === end_date ? formatDate(start_date.substring(0, 10)) : `${formatDate(start_date.substring(0, 10))} - ${formatDate(end_date.substring(0, 10))}`}</p>
                       </div>
-                      <p style={{ color: '#9f9f9f' }}>{createdEvent.location}</p>
-                      <p style={{ color: '#9f9f9f' }}>{createdEvent.borough}, NY</p>
+                      <p style={{ color: '#9f9f9f' }}>{location}</p>
+                      <p style={{ color: '#9f9f9f' }}>{borough}, NY</p>
                       <details style={{}}>
                         <summary style={{ cursor: 'pointer' }}>Description</summary>
-                        <p>{createdEvent.description}</p>
+                        <p>{description}</p>
                       </details>
                     </div>
                     <div className='cardSec2'>
-                      <button className='button my-3' style={{ background: '#FFF', color: '#344d41', border: '2px solid #344d41', borderRadius: '0px', display: 'flex', alignSelf: 'flex-start' }} onClick={() => deleteEventButton(createdEvent.id)}>Delete Event</button>
-                    </div>
-                    <div>
-                      {/* <h1 className='is-size-5 has-text-weight-bold mt-4'>Description</h1> */}
-                      {/* <p>{event.description}</p> */}
+                      <button className='button my-3' style={{ background: '#FFF', color: '#344d41', border: '2px solid #344d41', borderRadius: '0px', display: 'flex', alignSelf: 'flex-start' }} onClick={() => deleteEventButton(id)}>Delete Event</button>
                     </div>
                   </div>
                 </>
               )
-            }) : 'NAY'
+            }) : ''
           }
         </div>
       </div>
