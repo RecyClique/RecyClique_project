@@ -15,6 +15,11 @@ const storage = new CloudinaryStorage({
     folder: "recyclique",
     format: async (_req, _file) => "png", // supports promises as well
     public_id: (req, file) => file.filename,
+    transformation: [{
+      width: 500,
+      height: 500,
+      crop: 'fill'
+    }]
   },
 });
 
@@ -23,6 +28,11 @@ const parser = multer({ storage });
 const uploadImage = async (filePath) => {
   const result = await cloudinary.uploader.upload(filePath, {
     folder: "recyclique",
+    transformation: [{
+      width: 500,
+      height: 500,
+      crop: 'fill'
+    }]
   });
   return result;
 };
