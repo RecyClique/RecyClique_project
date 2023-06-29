@@ -52,6 +52,15 @@ class User {
     return new User(user);
   }
 
+  static async findByUsernameOrEmail(username, email) {
+  const query = "SELECT * FROM users WHERE username = ? OR email = ?";
+  const {
+    rows: [user],
+  } = await knex.raw(query, [username, email]);
+  return user;
+}
+
+
   static async deleteAll() {
     return knex.raw("TRUNCATE users RESTART IDENTITY CASCADE;");
   }

@@ -18,6 +18,7 @@ Router.patch("/users/:id", checkAuthentication, userController.update);
 Router.post("/login", userController.login);
 Router.delete("/logout", userController.logout);
 Router.get("/me", userController.showMe);
+Router.post('/users/check-existence', userController.checkExistence);
 
 Router.get("/logged-in-secret", checkAuthentication, (req, res) => {
   res.send({ msg: "The secret is: there is no secret." });
