@@ -139,7 +139,7 @@ const Dashboard = () => {
                       </details>
                     </div>
                     <div className='cardSec2'>
-                      <button className='button my-3' style={{ background: '#FFF', color: '#344d41', border: '2px solid #344d41', borderRadius: '0px', display: 'flex', alignSelf: 'flex-start' }} onClick={() => leaveEventButton(id)}>Leave Event</button>
+                      <button className='button my-3 is-danger' style={{ color: 'white', border: '2px solid #344d41', borderRadius: '0px', display: 'flex', alignSelf: 'flex-start' }} onClick={() => leaveEventButton(id)}>Leave Event</button>
                     </div>
                     <div>
                     </div>
@@ -174,7 +174,7 @@ const Dashboard = () => {
                       </details>
                     </div>
                     <div className='cardSec2'>
-                      <button className='button my-3' style={{ background: '#FFF', color: '#344d41', border: '2px solid #344d41', borderRadius: '0px', display: 'flex', alignSelf: 'flex-start' }} onClick={() => deleteEventButton(id)}>Delete Event</button>
+                      <button className='button my-3 is-danger' style={{  color: 'white', border: '2px solid #344d41', borderRadius: '0px', display: 'flex', alignSelf: 'flex-start' }} onClick={() => deleteEventButton(id)}>Delete Event</button>
                     </div>
                   </div>
                 </>

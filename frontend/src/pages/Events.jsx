@@ -31,22 +31,34 @@ const Events = () => {
       const joinEventResponse = await joinEvent(options);
       console.log(joinEventResponse);  // log the response to the console
       BulmaToast.toast({
-        message: 'You have successfully joined the event.',
-        type: 'is-success',
-        duration: 5000,
-        position: 'top-right',
+        // message: 'You have successfully joined the event.',
+        // type: 'is-success',
+        // duration: 5000,
+        // position: 'top-right',
+        // dismissible: true,
+        // animate: { in: 'fadeIn', out: 'fadeOut' },
+
+        message: `You have successfully joined the event.`,
+        type: "is-success",
+        position: 'top-center',
         dismissible: true,
-        animate: { in: 'fadeIn', out: 'fadeOut' }
+        pauseOnHover: true,
       });
       setToggle(toggle + 1);
     } catch (error) {
       BulmaToast.toast({
-        message: 'An error occurred. Please try again.',
-        type: 'is-danger',
-        duration: 5000,
-        position: 'top-right',
+        // message: 'An error occurred. Please try again.',
+        // type: 'is-danger',
+        // duration: 5000,
+        // position: 'top-right',
+        // dismissible: true,
+        // animate: { in: 'fadeIn', out: 'fadeOut' },
+
+        message: `An error occurred. Please try again.`,
+        type: "is-danger",
+        position: 'top-center',
         dismissible: true,
-        animate: { in: 'fadeIn', out: 'fadeOut' }
+        pauseOnHover: true,
       });
       console.error(error);
     }
@@ -125,7 +137,7 @@ const Events = () => {
             events.map((event) => {
               if (currentUser) {
                 return (
-                   Number(event.organizer_id) !== Number(currentUser.id) && toggle ? <>
+                  Number(event.organizer_id) !== Number(currentUser.id) && toggle ? <>
                     <div className='box eventBox my-5 eventCardHover' id={`eventId: ${event.id}`} style={{ borderRadius: '0px', display: 'flex', flexDirection: 'column', width: '300px' }}>
                       <div className='eventCard' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', height: '100%' }}>
                         <p className='has-text-weight-bold is-size-6 pb-4'>{event.username}</p>
@@ -147,7 +159,7 @@ const Events = () => {
                       </div>
                       <div className='cardSec2'>
                         {joined.has(event.id) ? <>
-                          <button className='button my-3 is-danger' style={{color:'white', border: '2px solid #344d41', borderRadius: '0px', display: 'flex', alignSelf: 'flex-start' }} onClick={() => leaveEventButton(event.id)}>Leave Event</button>
+                          <button className='button my-3 is-danger' style={{ color: 'white', border: '2px solid #344d41', borderRadius: '0px', display: 'flex', alignSelf: 'flex-start' }} onClick={() => leaveEventButton(event.id)}>Leave Event</button>
                         </> :
                           <button className='button my-3' style={{ background: '#FFF', color: '#344d41', border: '2px solid #344d41', borderRadius: '0px', display: 'flex', alignSelf: 'flex-start' }} onClick={() => eventClick(event)}>Join Event</button>}
                         {/* <button className='button my-3' style={{ background: '#FFF', color: '#344d41', border: '2px solid #344d41', borderRadius: '0px', display: 'flex', alignSelf: 'flex-start' }} onClick={() => eventClick(event)}>Join Event</button> */}
