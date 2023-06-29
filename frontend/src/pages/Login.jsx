@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { useNavigate, Navigate, Link } from "react-router-dom";
 import * as BulmaToast from "bulma-toast";
-import { logUserIn } from "../adapters/auth-adapter";
+import { logUserIn, logUserOut } from "../adapters/auth-adapter";
 import CurrentUserContext from "../contexts/current-user-context";
 
 export default function LoginPage() {
@@ -23,7 +23,6 @@ export default function LoginPage() {
 
     setCurrentUser(user);
 
-    // Show a success message
     BulmaToast.toast({
       message: `Logged in!`,
       type: "is-success",

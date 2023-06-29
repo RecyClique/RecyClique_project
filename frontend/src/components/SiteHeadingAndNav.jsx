@@ -1,26 +1,10 @@
 import { useNavigate, Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import CurrentUserContext from "../contexts/current-user-context";
+import * as BulmaToast from "bulma-toast";
 import { getUser } from "../adapters/user-adapter";
 import { logUserOut } from "../adapters/auth-adapter";
 
-/* 
-
-home
-about us
-events
-newsfeed
-sign up
-login
-
-logged in:
-
-about us
-events
-newsfeed
-logout
-
-*/
 export default function SiteHeadingAndNav() {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const [isBurgerToggled, setIsBurgerToggled] = useState(false);
@@ -29,10 +13,21 @@ export default function SiteHeadingAndNav() {
   }
   const navigate = useNavigate()
   const handleLogout = async () => {
-    logUserOut();
+    await logUserOut();
     setCurrentUser(null);
+
+    // Show a success message
+    BulmaToast.toast({
+      message: `Logged out!`,
+      type: "is-success",
+      position: "top-center",
+      dismissible: true,
+      pauseOnHover: true,
+    });
+
     navigate('/');
   };
+  
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className='navbar-start'>

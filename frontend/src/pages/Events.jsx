@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import EventForm from "../components/EventForm";
-
+import * as BulmaToast from "bulma-toast";
 import { getAllEvents } from "../adapters/events-adapter";
 import CurrentUserContext from "../contexts/current-user-context";
 import { joinEvent, listAllJoined } from "../adapters/user-adapter";// import Modal from "../adapters/components";
@@ -26,8 +26,29 @@ const Events = () => {
       userId: currentUser.id,
       eventId: event.id,
     };
-    await joinEvent(options);
-    setToggle(toggle + 1)
+    try {
+      const joinEventResponse = await joinEvent(options);
+      console.log(joinEventResponse);  // log the response to the console
+        BulmaToast.toast({
+          message: 'You have successfully joined the event.',
+          type: 'is-success',
+          duration: 5000,
+          position: 'top-right',
+          dismissible: true,
+          animate: { in: 'fadeIn', out: 'fadeOut' }
+        });
+      setToggle(toggle + 1);
+    } catch (error) {
+      BulmaToast.toast({
+        message: 'An error occurred. Please try again.',
+        type: 'is-danger',
+        duration: 5000,
+        position: 'top-right',
+        dismissible: true,
+        animate: { in: 'fadeIn', out: 'fadeOut' }
+      });
+      console.error(error);
+    }
   };
 
   const [events, setEvents] = useState([]);
@@ -160,3 +181,4 @@ const Events = () => {
 };
 
 export default Events;
+

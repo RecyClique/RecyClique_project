@@ -1,5 +1,6 @@
 import { listAllCreated, listAllJoined, leavePost } from "../adapters/user-adapter"
 import { deleteEvent } from "../adapters/events-adapter";
+import * as BulmaToast from "bulma-toast";
 import CurrentUserContext from "../contexts/current-user-context";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -44,15 +45,33 @@ const Dashboard = () => {
 
   const leaveEventButton = async (eventId) => {
     await leavePost(currentUser.id, eventId);
+
+    // Show a success message
+    BulmaToast.toast({
+      message: `Successfully left the event!`,
+      type: "is-success",
+      position: "top-center",
+      dismissible: true,
+      pauseOnHover: true,
+    });
+
     setToggle(toggle + 1)
-    // window.location.reload()
   }
 
 
   const deleteEventButton = async (eventId) => {
     await deleteEvent(eventId);
+
+    // Show a success message
+    BulmaToast.toast({
+      message: `Event deleted successfully!`,
+      type: "is-success",
+      position: "top-center",
+      dismissible: true,
+      pauseOnHover: true,
+    });
+
     setToggle(toggle + 1)
-    // window.location.reload();
   }
 
   function convertToUSTime(militaryTime) {
@@ -77,8 +96,8 @@ const Dashboard = () => {
   }
 
   return (
-    <div style={{ background: '#344d41', minHeight: '75vh' }}>
-      <div>
+    <div style={{ background: '#344d41', minHeight: '75vh', padding: '40px' }}>
+      <div style={{ padding: '20px' }}>
         {currentUser &&
           <h1 className="title has-text-centered has-text-white py-4">Welcome, {currentUser.first_name} {currentUser.last_name}!</h1>
         }
