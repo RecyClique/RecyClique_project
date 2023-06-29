@@ -5,6 +5,7 @@ import * as BulmaToast from "bulma-toast";
 import { getAllEvents } from "../adapters/events-adapter";
 import CurrentUserContext from "../contexts/current-user-context";
 import { joinEvent, listAllJoined } from "../adapters/user-adapter";// import Modal from "../adapters/components";
+import { leavePost } from '../adapters/user-adapter';
 import "../index.css";
 
 const Events = () => {
@@ -29,14 +30,14 @@ const Events = () => {
     try {
       const joinEventResponse = await joinEvent(options);
       console.log(joinEventResponse);  // log the response to the console
-        BulmaToast.toast({
-          message: 'You have successfully joined the event.',
-          type: 'is-success',
-          duration: 5000,
-          position: 'top-right',
-          dismissible: true,
-          animate: { in: 'fadeIn', out: 'fadeOut' }
-        });
+      BulmaToast.toast({
+        message: 'You have successfully joined the event.',
+        type: 'is-success',
+        duration: 5000,
+        position: 'top-right',
+        dismissible: true,
+        animate: { in: 'fadeIn', out: 'fadeOut' }
+      });
       setToggle(toggle + 1);
     } catch (error) {
       BulmaToast.toast({
@@ -97,6 +98,21 @@ const Events = () => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', options);
   }
+
+  const leaveEventButton = async (eventId) => {
+    await leavePost(currentUser.id, eventId);
+
+    // Show a success message
+    BulmaToast.toast({
+      message: `Successfully left the event!`,
+      type: "is-success",
+      position: "top-center",
+      dismissible: true,
+      pauseOnHover: true,
+    });
+
+    setToggle(toggle + 1)
+  }
   return (
     <>
       <div style={{ background: '#344d41', minHeight: '75vh' }} >
@@ -109,42 +125,46 @@ const Events = () => {
             events.map((event) => {
               if (currentUser) {
                 return (
-                  joined.has(event.id) === false && Number(event.organizer_id) !== Number(currentUser.id) && toggle ? <>
-                  <div className='box eventBox my-5 eventCardHover' id={`eventId: ${event.id}`} style={{ borderRadius: '0px', display: 'flex', flexDirection: 'column', width: '300px' }}>
-                    <div className='eventCard' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', height: '100%' }}>
-                    <p className='has-text-weight-bold is-size-6 pb-4'>{event.username}</p>
-                      <figure className="image" style={{ width: '100%', height: '400px', overflow: 'hidden' }}>
-                        <img src={event.image} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                      </figure>
-                      <h1 className='title' style={{ paddingTop: '10px', fontSize: '20px' }}>{event.title}</h1>
-                      <p className='has-text-weight-bold'>{event.type}</p>
-                      <div>
-                        <p>{`${convertToUSTime(event.start_time)} - ${convertToUSTime(event.end_time)}`}</p>
-                        <p>{event.start_date === event.end_date ? formatDate(event.start_date.substring(0, 10)) : `${formatDate(event.start_date.substring(0, 10))} - ${formatDate(event.end_date.substring(0, 10))}`}</p>
+                   Number(event.organizer_id) !== Number(currentUser.id) && toggle ? <>
+                    <div className='box eventBox my-5 eventCardHover' id={`eventId: ${event.id}`} style={{ borderRadius: '0px', display: 'flex', flexDirection: 'column', width: '300px' }}>
+                      <div className='eventCard' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', height: '100%' }}>
+                        <p className='has-text-weight-bold is-size-6 pb-4'>{event.username}</p>
+                        <figure className="image" style={{ width: '100%', height: '400px', overflow: 'hidden' }}>
+                          <img src={event.image} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        </figure>
+                        <h1 className='title' style={{ paddingTop: '10px', fontSize: '20px' }}>{event.title}</h1>
+                        <p className='has-text-weight-bold'>{event.type}</p>
+                        <div>
+                          <p>{`${convertToUSTime(event.start_time)} - ${convertToUSTime(event.end_time)}`}</p>
+                          <p>{event.start_date === event.end_date ? formatDate(event.start_date.substring(0, 10)) : `${formatDate(event.start_date.substring(0, 10))} - ${formatDate(event.end_date.substring(0, 10))}`}</p>
+                        </div>
+                        <p style={{ color: '#9f9f9f' }}>{event.location}</p>
+                        <p style={{ color: '#9f9f9f' }}>{event.borough}, NY</p>
+                        <details style={{}}>
+                          <summary style={{ cursor: 'pointer' }}>Description</summary>
+                          <p>{event.description}</p>
+                        </details>
                       </div>
-                      <p style={{ color: '#9f9f9f' }}>{event.location}</p>
-                      <p style={{ color: '#9f9f9f' }}>{event.borough}, NY</p>
-                      <details style={{}}>
-                        <summary style={{ cursor: 'pointer' }}>Description</summary>
-                        <p>{event.description}</p>
-                      </details>
+                      <div className='cardSec2'>
+                        {joined.has(event.id) ? <>
+                          <button className='button my-3 is-danger' style={{color:'white', border: '2px solid #344d41', borderRadius: '0px', display: 'flex', alignSelf: 'flex-start' }} onClick={() => leaveEventButton(event.id)}>Leave Event</button>
+                        </> :
+                          <button className='button my-3' style={{ background: '#FFF', color: '#344d41', border: '2px solid #344d41', borderRadius: '0px', display: 'flex', alignSelf: 'flex-start' }} onClick={() => eventClick(event)}>Join Event</button>}
+                        {/* <button className='button my-3' style={{ background: '#FFF', color: '#344d41', border: '2px solid #344d41', borderRadius: '0px', display: 'flex', alignSelf: 'flex-start' }} onClick={() => eventClick(event)}>Join Event</button> */}
+                      </div>
+                      <div>
+                        {/* <h1 className='is-size-5 has-text-weight-bold mt-4'>Description</h1> */}
+                        {/* <p>{event.description}</p> */}
+                      </div>
                     </div>
-                    <div className='cardSec2'>
-                      <button className='button my-3' style={{ background: '#FFF', color: '#344d41', border: '2px solid #344d41', borderRadius: '0px', display: 'flex', alignSelf: 'flex-start' }} onClick={() => eventClick(event)}>Join Event</button>
-                    </div>
-                    <div>
-                      {/* <h1 className='is-size-5 has-text-weight-bold mt-4'>Description</h1> */}
-                      {/* <p>{event.description}</p> */}
-                    </div>
-                  </div>
-                </> : null);
+                  </> : null);
               }
 
               return (
                 toggle ? <>
                   <div className='box eventBox my-5 eventCardHover' id={`eventId: ${event.id}`} style={{ borderRadius: '0px', display: 'flex', flexDirection: 'column', width: '300px' }}>
                     <div className='eventCard' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', height: '100%' }}>
-                    <p className='has-text-weight-bold is-size-6 pb-4'>{event.username}</p>
+                      <p className='has-text-weight-bold is-size-6 pb-4'>{event.username}</p>
                       <figure className="image" style={{ width: '100%', height: '400px', overflow: 'hidden' }}>
                         <img src={event.image} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                       </figure>
