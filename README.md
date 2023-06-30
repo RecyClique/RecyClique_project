@@ -2,8 +2,11 @@
 
 **Mission Statement**
 
-Our mission is to connect and empower young individuals who are passionate about environmental preservation, by providing them with resources, information, and a platform to take action towards creating a cleaner and more sustainable world. Youth is our future, and we want our future to be clean and green. We believe young people have the motivation and the reason to fight for a more sustainable world, and what we want to deliver are resources to do just that.
-Who We Serve
+The problems of plastic and carbon pollution, global warming and tons of waste, impact all our lives on Earth. As young people, we fear for our future, daily. At Recycliqe we believe it’s time for us to unite and to execute our efforts of becoming more self-sustainable, lessening the demand for the ever-increasing over-production of goods. 
+Recyclique tackles the lack of awareness around recycling and other environmental issues. We aim to empower users all over New York City to participate in recycling events, and we hope to foster a sense of dedication to a more eco-conscious lifestyle.
+
+**Who We Serve** 
+
 We aim to serve youth, as well as all individuals between young adults and the working class, who are environmentally conscious, eco-friendly, or aspire to be more so who live in any of the five boroughs of NYC. Our target audience includes academics, activists, and anyone who wants to make a positive impact on the environment, while connecting with their community in a fun way.
 
 **Product Overview**
@@ -61,3 +64,12 @@ Partnerships with Businesses: Collaborating with local businesses and organizati
 United Nations Environment Programme. (2020). Emissions Gap Report 2020 https://www.unep.org/emissions-gap-report-2020
 Environmental Protection Agency. (2020). Climate Change Indicators in the United States https://www.epa.gov/climate-indicators
 World Wildlife Fund. (2021). Plastic Pollution https://www.worldwildlife.org/threats/plastic-pollution
+
+**Technologies**
+
+![B4B86A8C-A73F-4999-99E4-F5BE3147F7C2_1_201_a](https://github.com/RecyClique/RecyClique_project/assets/114107908/82c85f2c-975a-4ba5-b09f-fbd444b284ca)
+
+**RecyClique ERD**
+
+<img width="989" alt="Screenshot 2023-06-30 at 7 27 56 PM" src="https://github.com/RecyClique/RecyClique_project/assets/114107908/a6696ac4-8ce3-416b-8992-bc17c44e2b3a">
+
