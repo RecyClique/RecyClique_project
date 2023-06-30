@@ -30,6 +30,11 @@ export const listAllCreated = async (userId) => {
   return result;
 }
 
+export const userNameAndEmailChecker = async ({username, email}) => {
+  const result = await fetchHandler(`${baseUrl}/check-existence`, getPostOptions({username, email}))
+  return result
+}
+
 export const getUser = async (id) => fetchHandler(`${baseUrl}/${id}`);
 
 export const updateUsername = async ({ id, username }) => (

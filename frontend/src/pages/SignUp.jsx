@@ -4,6 +4,7 @@ import * as BulmaToast from "bulma-toast";
 import CurrentUserContext from "../contexts/current-user-context";
 import { createUser } from "../adapters/user-adapter";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { userNameAndEmailChecker } from "../adapters/user-adapter";
 
 export default function SignUpPage() {
   const navigate = useNavigate();
@@ -42,6 +43,10 @@ export default function SignUpPage() {
     for (const [key, value] of formData.entries()) {
       userData[key] = value;
     }
+    let exist = await userNameAndEmailChecker(userData)
+    console.log(exist)
+    if(exist[0].message !== 'Success') return setErrorText(exist[0].message);
+
     const passwordStrength = checkPasswordStrength(userData.password);
     if (passwordStrength) return setErrorText(passwordStrength);
     if (userData.password !== userData.confirm_password) return setErrorText('Confirm Password Does Not Match');
