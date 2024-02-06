@@ -1,17 +1,17 @@
 import { useNavigate, Link } from "react-router-dom";
 import { useContext, useState } from "react";
-import CurrentUserContext from "../contexts/current-user-context";
 import * as BulmaToast from "bulma-toast";
-import { getUser } from "../adapters/user-adapter";
+import CurrentUserContext from "../contexts/current-user-context";
+// import { getUser } from "../adapters/user-adapter";
 import { logUserOut } from "../adapters/auth-adapter";
 
 export default function SiteHeadingAndNav() {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const [isBurgerToggled, setIsBurgerToggled] = useState(false);
   const burgerToggle = () => {
-    setIsBurgerToggled(!isBurgerToggled)
-  }
-  const navigate = useNavigate()
+    setIsBurgerToggled(!isBurgerToggled);
+  };
+  const navigate = useNavigate();
   const handleLogout = async () => {
     await logUserOut();
     setCurrentUser(null);
@@ -27,7 +27,7 @@ export default function SiteHeadingAndNav() {
 
     navigate('/');
   };
-  
+
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className='navbar-start'>
@@ -81,7 +81,7 @@ export default function SiteHeadingAndNav() {
         </div>
       </div>
     </nav>
-  )
+  );
 
   // return <header>
   //   <a id='logo' href='/'>React/Express Auth</a>

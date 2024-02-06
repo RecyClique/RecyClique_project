@@ -18,8 +18,8 @@ const storage = new CloudinaryStorage({
     transformation: [{
       width: 500,
       height: 500,
-      crop: 'fill'
-    }]
+      crop: 'fill',
+    }],
   },
 });
 
@@ -31,8 +31,8 @@ const uploadImage = async (filePath) => {
     transformation: [{
       width: 500,
       height: 500,
-      crop: 'fill'
-    }]
+      crop: 'fill',
+    }],
   });
   return result;
 };

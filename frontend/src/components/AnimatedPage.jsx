@@ -4,7 +4,7 @@ const animations = {
     initial: { opacity: 0, x: 100 },
     animate: { opacity: 1, x: 0 },
     exit: { opacity: 0, x: -100 }
-}
+};
 
 const AnimatedPage = ({ children }) => {
     return (
@@ -18,6 +18,6 @@ const AnimatedPage = ({ children }) => {
             {children}
         </motion.div>
     )
-}
+};
 
-export default AnimatedPage
+export default AnimatedPage;

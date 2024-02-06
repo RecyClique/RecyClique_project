@@ -68,8 +68,8 @@ const Events = () => {
 
   useEffect(() => {
     getAllEvents().then(setEvents);
-    console.log(events)
-  }, []);
+    console.log(events);
+  }, [events]);
   const [joined, setJoined] = useState(new Set());
   useEffect(() => {
     const joinedChecker = async () => {
@@ -123,8 +123,8 @@ const Events = () => {
       pauseOnHover: true,
     });
 
-    setToggle(toggle + 1)
-  }
+    setToggle(toggle + 1);
+  };
   return (
     <>
       <div style={{ background: '#344d41', minHeight: '75vh' }} >
@@ -162,7 +162,6 @@ const Events = () => {
                           <button className='button my-3 is-danger' style={{ color: 'white', border: '2px solid #344d41', borderRadius: '0px', display: 'flex', alignSelf: 'flex-start' }} onClick={() => leaveEventButton(event.id)}>Leave Event</button>
                         </> :
                           <button className='button my-3' style={{ background: '#FFF', color: '#344d41', border: '2px solid #344d41', borderRadius: '0px', display: 'flex', alignSelf: 'flex-start' }} onClick={() => eventClick(event)}>Join Event</button>}
-                        {/* <button className='button my-3' style={{ background: '#FFF', color: '#344d41', border: '2px solid #344d41', borderRadius: '0px', display: 'flex', alignSelf: 'flex-start' }} onClick={() => eventClick(event)}>Join Event</button> */}
                       </div>
                       <div>
                         {/* <h1 className='is-size-5 has-text-weight-bold mt-4'>Description</h1> */}
@@ -213,4 +212,3 @@ const Events = () => {
 };
 
 export default Events;
-

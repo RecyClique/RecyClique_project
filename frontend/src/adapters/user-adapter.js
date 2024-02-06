@@ -6,9 +6,9 @@ export const createUser = async ({ first_name, last_name, username, email, passw
   fetchHandler(baseUrl, getPostOptions({ first_name, last_name, username, email, password }))
 );
 
-export const joinEvent = async ({userId, eventId}) => {
-  await fetchHandler(`${baseUrl}/${userId}/events/${eventId}`, getPostOptions({userId, eventId})) 
-}
+export const joinEvent = async ({ userId, eventId }) => {
+  await fetchHandler(`${baseUrl}/${userId}/events/${eventId}`, getPostOptions({ userId, eventId }));
+};
 
 // eating errors here for simplicity
 export const getAllUsers = async () => {
@@ -19,21 +19,21 @@ export const getAllUsers = async () => {
 export const leavePost = async (userId, eventId) => {
   const result = await fetchHandler(`${baseUrl}/${userId}/events/${eventId}`, deleteOptions);
   return result;
-}
+};
 
 export const listAllJoined = async (userId) => {
-  const result = await fetchHandler(`${baseUrl}/${userId}/joinedEvents`)
+  const result = await fetchHandler(`${baseUrl}/${userId}/joinedEvents`);
   return result;
-}
+};
 export const listAllCreated = async (userId) => {
-  const result = await fetchHandler(`${baseUrl}/${userId}/createdEvents`)
+  const result = await fetchHandler(`${baseUrl}/${userId}/createdEvents`);
   return result;
-}
+};
 
-export const userNameAndEmailChecker = async ({username, email}) => {
-  const result = await fetchHandler(`${baseUrl}/check-existence`, getPostOptions({username, email}))
-  return result
-}
+export const userNameAndEmailChecker = async ({ username, email }) => {
+  const result = await fetchHandler(`${baseUrl}/check-existence`, getPostOptions({ username, email }));
+  return result;
+};
 
 export const getUser = async (id) => fetchHandler(`${baseUrl}/${id}`);
 
