@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 const Article = ({ article }) => {
   const handleClick = () => {
     window.open(article.web_url, '_blank');
   };
   return (
-    <div className="card mb-5" style={{width:'85%', margin: '0 auto'}}>
+    <div className="card mb-5" style={{ width:'85%', margin: '0 auto' }}>
       <div className="content" id="newsCard">
         <div onClick={handleClick} className="article-container">
           <div className="article-content">
@@ -52,10 +52,10 @@ const ArticleList = () => {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', overflow: 'auto', marginTop: '30px', marginBottom: '40px'}}>
-      <h1 style={{ margin: '25px 25px 35px 25px'}} className='title'>NewsFeed</h1>
+      <h1 style={{ margin: '25px 25px 35px 25px' }} className='title'>NewsFeed</h1>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         {articles.map(article => (
-          <Article key={article._id} article={article} />
+          <Article key={article.id} article={article} />
         ))}
       </div>
     </div>

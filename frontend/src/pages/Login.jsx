@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { useNavigate, Navigate, Link } from "react-router-dom";
 import * as BulmaToast from "bulma-toast";
-import { logUserIn, logUserOut } from "../adapters/auth-adapter";
+import { logUserIn } from "../adapters/auth-adapter";
 import CurrentUserContext from "../contexts/current-user-context";
 
 export default function LoginPage() {
@@ -49,7 +49,7 @@ export default function LoginPage() {
           <label className="is-size-5" htmlFor='password'>Password</label>
           <input type="password" className='input is-medium' id='password' name='password' placeholder="Password"></input>
           <button type='submit' className="button logInButton mb-2 is-rounded is-custom">Log In</button>
-          <p className="has-text-centered">Don't have an account? Click here to <Link to="/sign-up">Sign Up!</Link></p>
+          <p className="has-text-centered">Don&apost have an account? Click here to <Link to="/sign-up">Sign Up!</Link></p>
         </form>
       </div>
     </div>

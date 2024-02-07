@@ -56,8 +56,7 @@ const Dashboard = () => {
     });
 
     setToggle(toggle + 1)
-  }
-
+  };
 
   const deleteEventButton = async (eventId) => {
     await deleteEvent(eventId);
@@ -71,13 +70,13 @@ const Dashboard = () => {
       pauseOnHover: true,
     });
 
-    setToggle(toggle + 1)
-  }
+    setToggle(toggle + 1);
+  };
 
   function convertToUSTime(militaryTime) {
     const timeComponents = militaryTime.split(':');
     let hours = parseInt(timeComponents[0]);
-    let minutes = parseInt(timeComponents[1]);
+    const minutes = parseInt(timeComponents[1]);
     let period = "AM";
     if (hours >= 12) {
       period = "PM";
@@ -102,8 +101,6 @@ const Dashboard = () => {
           <h1 className="title has-text-centered has-text-white py-4">Welcome, {currentUser.first_name} {currentUser.last_name}!</h1>
         }
       </div>
-
-
 
       <div className="tabs is-centered">
         <ul>
@@ -145,7 +142,7 @@ const Dashboard = () => {
                     </div>
                   </div>
                 </>
-              )
+              );
             }) : 'NAY'
           }
         </div>
@@ -178,13 +175,13 @@ const Dashboard = () => {
                     </div>
                   </div>
                 </>
-              )
+              );
             }) : ''
           }
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;

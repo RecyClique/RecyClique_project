@@ -1,5 +1,6 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import ScrollAnimation from 'react-animate-on-scroll';
+
 export default function HomePage() {
   return <>
     <section className='section is-large' id='landingSection1'>
@@ -34,7 +35,7 @@ export default function HomePage() {
         </figure>
       </ScrollAnimation>
     </section>
-    
+
     <section className='section is-medium has-text-centered' id='landingSection4'>
       <ScrollAnimation animateIn='fadeIn'>
         <h1 className='is-size-3 has-text-weight-bold'>Read The Latest News on Enironmentalism</h1>
@@ -44,5 +45,5 @@ export default function HomePage() {
         </Link>
       </ScrollAnimation>
     </section>
-  </>
+  </>;
 }
